@@ -12,7 +12,7 @@ return [
 	],
 
 	'app' => [
-		'base_url' => 'gpn',
+		'base_url' => 'sprnva',
 		'name' => 'SPRNVA'
 	]
 ];
