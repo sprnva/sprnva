@@ -27,10 +27,6 @@ Router::load('config/routes/web.php')
 		// the method use of the uri
 		Request::method(),
 
-		// skip checking this route for authentication
-		[
-			'login',
-			'register',
-			'welcome'
-		]
+		// protect routes if not authenticated
+		Request::authProtection(false)
 	);
