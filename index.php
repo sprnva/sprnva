@@ -28,5 +28,5 @@ Router::load('config/routes/web.php')
 		Request::method(),
 
 		// protect routes if not authenticated
-		Request::authProtection(false)
+		Request::authProtection(true)
 	);
