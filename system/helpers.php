@@ -57,3 +57,6 @@ function sanitizeString($data)
 
     return $data;
 }
+
+// add additional helper functions from the users
+require __DIR__ . '/../config/function.helpers.php';

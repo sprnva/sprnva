@@ -26,7 +26,7 @@ class RegisterController
 
         $register_user = [
             'email' => $request['r_email'],
-            'fullname' => $request['r_email'],
+            'fullname' => $request['r_name'],
             'username' => $request['r_username'],
             'password' => md5($request['r_password']),
             'updated_at' => date("Y-m-d H:i:s"),
