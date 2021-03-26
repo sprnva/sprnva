@@ -59,29 +59,31 @@ class Router
 	 */
 	public function direct($uri, $requestType, $skipAuth = [])
 	{
-		if (Auth::isAuthorized($uri, $skipAuth)) {
-			if (array_key_exists($uri, $this->routes[$requestType])) {
-				return $this->callAction(
-					...explode('@', $this->routes[$requestType][$uri])
-				);
-			} else {
-				foreach ($this->routes[$requestType] as $key => $val) {
-					$pattern = preg_replace('#\(/\)#', '/?', $key);
-					$pattern = "@^" . preg_replace('/{([a-zA-Z0-9\_\-]+)}/', '(?<$1>[a-zA-Z0-9\_\-]+)', $pattern) . "$@D";
-					preg_match($pattern, $uri, $matches);
-					array_shift($matches);
+		if (!empty($skipAuth)) {
+			if (!Auth::isAuthorized($uri, $skipAuth)) {
+				redirect('login');
+			}
+		}
+		
+		if (array_key_exists($uri, $this->routes[$requestType])) {
+			return $this->callAction(
+				...explode('@', $this->routes[$requestType][$uri])
+			);
+		} else {
+			foreach ($this->routes[$requestType] as $key => $val) {
+				$pattern = preg_replace('#\(/\)#', '/?', $key);
+				$pattern = "@^" . preg_replace('/{([a-zA-Z0-9\_\-]+)}/', '(?<$1>[a-zA-Z0-9\_\-]+)', $pattern) . "$@D";
+				preg_match($pattern, $uri, $matches);
+				array_shift($matches);
 
-					if ($matches) {
-						$getAction = explode('@', $val);
-						return $this->callAction($getAction[0], $getAction[1], $matches);
-					}
+				if ($matches) {
+					$getAction = explode('@', $val);
+					return $this->callAction($getAction[0], $getAction[1], $matches);
 				}
 			}
-
-			throw new Exception('No route defined for this URI');
 		}
 
-		redirect('login');
+		throw new Exception('No route defined for this URI');
 	}
 
 	/**
