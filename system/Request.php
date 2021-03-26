@@ -51,4 +51,21 @@ class Request
 
 		return $post_data;
 	}
+	
+	/**
+	 * this will protect routes for being access in the
+	 * url without authentication
+	 * 
+	 */
+	public static function authProtection($switch = false)
+	{
+		// skip checking this route for authentication
+		return ($switch) ?
+			[
+				'login',
+				'register',
+				'welcome'
+			]
+			: [];
+	}
 }
