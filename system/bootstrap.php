@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(E_ALL & ~E_WARNING);
+error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 
 use App\Core\App;
 use App\Core\Database\QueryBuilder;
