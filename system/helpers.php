@@ -30,6 +30,16 @@ function redirect($path, $message = "")
 }
 
 /**
+ * set the public location
+ * 
+ * @param string $uri
+ */
+function public_url($uri = "")
+{
+    return App::get('base_url') . "/public" . $uri;
+}
+
+/**
  * set a new route.
  *
  * @param  string $route
