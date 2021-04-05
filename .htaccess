@@ -26,6 +26,5 @@
 
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>

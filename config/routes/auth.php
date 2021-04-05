@@ -11,3 +11,5 @@ $router->post("register", 'RegisterController@store');
 $router->get("profile", 'ProfileController@index');
 $router->get("profile/detail/{id}", 'ProfileController@detail');
 $router->post('profile', 'ProfileController@update');
+$router->post('profile/changepass', 'ProfileController@changePass');
+// $router->get('profile/delete', 'ProfileController@delete');

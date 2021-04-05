@@ -68,5 +68,18 @@ function sanitizeString($data)
     return $data;
 }
 
+function errors($errorSession, $type = "danger")
+{
+    if (isset($_SESSION[$errorSession])) {
+        $msg = "<div class='alert alert-" . $type . "' role='alert' style='border-left-width: 4px;'>" . $_SESSION[$errorSession] . "</div>";
+
+        unset($_SESSION[$errorSession]);
+    } else {
+        $msg = "";
+    }
+
+    return $msg;
+}
+
 // add additional helper functions from the users
 require __DIR__ . '/../config/function.helpers.php';

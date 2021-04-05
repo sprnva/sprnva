@@ -32,11 +32,10 @@ use App\Core\App;
                 <div class="card mt-4" style="background-color: #fff; border: 0px; border-radius: 8px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
                     <div class="card-body">
                         <small class="form-text mb-1" style="color: blue;">
-                            <?= $_SESSION["ALERT_MSG"] ?>
+                            <?= errors('ALERT_MSG'); ?>
                         </small>
-                        <small id="emailHelp" class="form-text mb-1" style="color: red;">
-                            <?= $_SESSION["VALIDATION_ERROR"]['register'] ?>
-                        </small>
+                        <?= errors('VALIDATION_ERROR'); ?>
+
 
                         <form method="POST" action="<?= route('register') ?>">
                             <div class="form-group">

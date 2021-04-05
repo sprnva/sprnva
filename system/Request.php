@@ -40,7 +40,7 @@ class Request
 		}
 
 		if (!empty($errorList)) {
-			$_SESSION["VALIDATION_ERROR"][$uri] = $errorList;
+			$_SESSION["VALIDATION_ERROR"] = $errorList;
 			redirect($uri);
 			exit();
 		}
@@ -51,7 +51,7 @@ class Request
 
 		return $post_data;
 	}
-	
+
 	/**
 	 * this will protect routes for being access in the
 	 * url without authentication
