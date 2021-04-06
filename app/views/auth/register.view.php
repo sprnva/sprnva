@@ -23,7 +23,7 @@ use App\Core\App;
 </head>
 
 <body>
-    <div class="container" style="margin-top: 3%;">
+    <div class="container" style="margin-top: 3%;padding-bottom: 30px;">
         <div class="row justify-content-md-center">
             <div class="col-md-5">
                 <div class="text-center mb-3">
@@ -31,10 +31,8 @@ use App\Core\App;
                 </div>
                 <div class="card mt-4" style="background-color: #fff; border: 0px; border-radius: 8px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
                     <div class="card-body">
-                        <small class="form-text mb-1" style="color: blue;">
-                            <?= errors('ALERT_MSG'); ?>
-                        </small>
-                        <?= errors('VALIDATION_ERROR'); ?>
+                        <?= msg('ALERT_MSG', "success"); ?>
+                        <?= msg('VALIDATION_ERROR'); ?>
 
 
                         <form method="POST" action="<?= route('register') ?>">

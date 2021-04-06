@@ -47,7 +47,7 @@ function public_url($uri = "")
  */
 function route($route, $data = "")
 {
-    if (!empty($data) || $data == 0) {
+    if (!empty($data)) {
         $data = "/{$data}";
     }
 
@@ -68,9 +68,16 @@ function sanitizeString($data)
     return $data;
 }
 
-function errors($errorSession, $type = "danger")
+/**
+ * display session message then 
+ * clear it instantly on refresh
+ * 
+ * @param string $errorSession
+ * @param string $type
+ */
+function msg($errorSession, $type = "danger")
 {
-    if (isset($_SESSION[$errorSession])) {
+    if (!empty($_SESSION[$errorSession])) {
         $msg = "<div class='alert alert-" . $type . "' role='alert' style='border-left-width: 4px;'>" . $_SESSION[$errorSession] . "</div>";
 
         unset($_SESSION[$errorSession]);
@@ -80,6 +87,24 @@ function errors($errorSession, $type = "danger")
 
     return $msg;
 }
+
+/**
+ * generate random strings
+ * 
+ * @param int $length
+ */
+function randChar($length = 6)
+{
+    $str = "";
+    $characters = array_merge(range('A', 'Z'), range('a', 'z'), range('0', '9'));
+    $max = count($characters) - 1;
+    for ($i = 0; $i < $length; $i++) {
+        $rand = mt_rand(0, $max);
+        $str .= $characters[$rand];
+    }
+    return $str;
+}
+
 
 // add additional helper functions from the users
 require __DIR__ . '/../config/function.helpers.php';

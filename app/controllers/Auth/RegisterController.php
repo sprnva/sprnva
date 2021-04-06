@@ -12,6 +12,10 @@ class RegisterController
 
     public function index()
     {
+        if (Auth::isAuthenticated()) {
+            redirect('home');
+        }
+
         $pageTitle = "Register";
         return view('auth/register', compact('pageTitle'));
     }

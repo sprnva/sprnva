@@ -63,4 +63,13 @@ class ProfileController
 
         redirect("profile");
     }
+
+    public function delete()
+    {
+        $user_id = Auth::user('id');
+        App::get('database')->delete('users', "id = '$user_id'");
+
+        session_destroy();
+        redirect('login');
+    }
 }

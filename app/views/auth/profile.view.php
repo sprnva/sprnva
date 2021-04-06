@@ -4,7 +4,7 @@ use App\Core\App; ?>
 
 <div class="row pb-3">
     <div class="col-12">
-        <?= errors('VALIDATION_ERROR'); ?>
+        <?= msg('VALIDATION_ERROR'); ?>
     </div>
     <div class="col-md-4">
         <h5>Profile Information</h5>
@@ -19,7 +19,7 @@ use App\Core\App; ?>
                         <form method="POST" action="<?= route('profile') ?>">
                             <div class="form-group">
                                 <label for="username">E-mail</label>
-                                <input type="email" class="form-control" name="email" autocomplete="off" value="<?= $user_data['email'] ?>" autofocus>
+                                <input type="email" class="form-control" name="email" autocomplete="off" value="<?= $user_data['email'] ?>">
                             </div>
                             <div class="form-group">
                                 <label for="username">Name</label>
@@ -34,13 +34,13 @@ use App\Core\App; ?>
                 <div class="card" style="background-color: #fff; border: 0px; border-radius: 8px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
                     <div class="card-body">
                         <h5 class="text-muted mb-4">Change Password</h5>
-                        <?= errors('CHANGE_PASS_ERROR'); ?>
-                        <?= errors('CHANGE_PASS_SUCCESS', "success"); ?>
+                        <?= msg('CHANGE_PASS_ERROR'); ?>
+                        <?= msg('CHANGE_PASS_SUCCESS', "success"); ?>
 
                         <form method="POST" action="<?= route('profile/changepass') ?>">
                             <div class="form-group">
                                 <label for="username">Old Password</label>
-                                <input type="password" class="form-control" name="old-password" autocomplete="off" autofocus>
+                                <input type="password" class="form-control" name="old-password" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="username">New Password</label>

@@ -64,7 +64,7 @@ class Router
 				redirect('login');
 			}
 		}
-		
+
 		if (array_key_exists($uri, $this->routes[$requestType])) {
 			return $this->callAction(
 				...explode('@', $this->routes[$requestType][$uri])
@@ -104,6 +104,6 @@ class Router
 			);
 		}
 
-		return $controllerClass->$action($paramerters);
+		return $controllerClass->$action($paramerters[0]);
 	}
 }

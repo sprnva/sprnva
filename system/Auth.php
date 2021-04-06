@@ -4,6 +4,13 @@ namespace App\Core;
 
 class Auth
 {
+    /**
+     * This will check if the uri
+     * is authorized and can be displayed to user
+     * 
+     * @param string $uri
+     * @param array $skippedUri
+     */
     public static function isAuthorized($uri, $skippedUri)
     {
         if (in_array($uri, $skippedUri)) {
@@ -13,11 +20,20 @@ class Auth
         return static::isAuthenticated();
     }
 
+    /**
+     * This will check if authenticated
+     * 
+     */
     public static function isAuthenticated()
     {
-        return $_SESSION["AUTH"]['id'];
+        return (!empty($_SESSION["AUTH"]['id'])) ? 1 : 0;
     }
 
+    /**
+     * This will authenticate the users information
+     * 
+     * @param array $datas
+     */
     public static function authenticate($datas)
     {
         if (!$datas) {
@@ -35,6 +51,11 @@ class Auth
         redirect('home');
     }
 
+    /**
+     * stores the authenticated user's data
+     * 
+     * @param string $record
+     */
     public static function user($record)
     {
         return $_SESSION['AUTH'][$record];
