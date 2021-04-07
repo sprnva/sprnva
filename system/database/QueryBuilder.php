@@ -44,9 +44,10 @@ class QueryBuilder
 	 *
 	 * @param string $table
 	 */
-	public function selectLoop($table)
+	public function selectLoop($column = '*', $table, $params = '')
 	{
-		$statement = $this->pdo->prepare("select * from {$table}");
+		$inject = ($params == '') ? "" : "WHERE $params";
+		$statement = $this->pdo->prepare("select {$column} from {$table} {$inject}");
 		$statement->execute();
 		return $statement->fetchAll(PDO::FETCH_CLASS);
 	}
