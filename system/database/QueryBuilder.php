@@ -168,11 +168,21 @@ class QueryBuilder
 	 */
 	public function query($query, $fetch = "N")
 	{
-		$statement = $this->pdo->prepare($query);
-		$statement->execute();
+		try {
+			$statement = $this->pdo->prepare($query);
+			$statement->execute();
 
-		if ($fetch == "Y") {
-			return $statement->fetchAll(PDO::FETCH_CLASS);
+			if ($fetch == "Y") {
+				return $statement->fetchAll(PDO::FETCH_CLASS);
+			} else {
+				if ($statement) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		} catch (Exception $e) {
+			die('something went wrong!');
 		}
 	}
 }

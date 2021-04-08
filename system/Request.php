@@ -64,7 +64,9 @@ class Request
 			[
 				'login',
 				'register',
-				'welcome'
+				'welcome',
+				'migration',
+				'migrate-run'
 			]
 			: [];
 	}
