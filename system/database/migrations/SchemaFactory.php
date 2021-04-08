@@ -10,11 +10,23 @@ class SchemaFactory
 	{
 		$this->schemaFilePath = $schemaPath . $schemaName;
 
-		// Where is your mysql? go find it!
-		// windows: C:\\xampp\\mysql\\bin\\
-		// masOS: /Applications/XAMPP/xamppfiles/bin/
-		// linux: /usr/bin/
-		$this->mysqlPath = "C:\\xampp\\mysql\\bin\\";
+		switch (App::get('config')['app']['os']) {
+			case 'windows':
+				$this->mysqlPath = "C:\\xampp\\mysql\\bin\\";
+				break;
+
+			case 'masOS':
+				$this->mysqlPath = "/Applications/XAMPP/xamppfiles/bin/";
+				break;
+
+			case 'linux':
+				$this->mysqlPath = "/usr/bin/";
+				break;
+
+			default:
+				$this->mysqlPath = "";
+				break;
+		}
 
 		// !! F A I L S A F E !!
 		// This collection is to prevent unwanted 
