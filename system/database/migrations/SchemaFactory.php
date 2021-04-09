@@ -15,7 +15,7 @@ class SchemaFactory
 				$this->mysqlPath = "C:\\xampp\\mysql\\bin\\";
 				break;
 
-			case 'masOS':
+			case 'macOS':
 				$this->mysqlPath = "/Applications/XAMPP/xamppfiles/bin/";
 				break;
 

@@ -15,7 +15,7 @@ return [
 		'base_url' => 'sprnva',
 		'name' => 'SPRNVA',
 
-		// choices to encode: windows, masOS, linux
+		// choices to encode: windows, macOS, linux
 		'OS' => 'windows',
 	]
 ];
