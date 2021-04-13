@@ -12,7 +12,7 @@ return [
 	],
 
 	'app' => [
-		'base_url' => 'sprnva',
+		'base_url' => 'sprnva/',
 		'name' => 'SPRNVA',
 
 		// choices: development, production

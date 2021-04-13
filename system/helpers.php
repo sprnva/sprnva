@@ -24,7 +24,7 @@ function view($name, $data = [])
  */
 function redirect($path, $message = "")
 {
-    $path = App::get('base_url') . "/" . $path;
+    $path = App::get('base_url') . $path;
     $_SESSION["ALERT_MSG"] = $message;
     header("Location: {$path}");
 }
@@ -36,7 +36,7 @@ function redirect($path, $message = "")
  */
 function public_url($uri = "")
 {
-    return App::get('base_url') . "/public" . $uri;
+    return App::get('base_url') . "public" . $uri;
 }
 
 /**
@@ -51,7 +51,7 @@ function route($route, $data = "")
         $data = "/{$data}";
     }
 
-    return App::get('base_url') . "/{$route}" . $data;
+    return App::get('base_url') . "{$route}" . $data;
 }
 
 /**
