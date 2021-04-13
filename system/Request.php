@@ -13,7 +13,8 @@ class Request
 	 */
 	public static function uri()
 	{
-		return trim(parse_url(str_replace(App::get('base_url'), "", $_SERVER['REQUEST_URI']), PHP_URL_PATH),  '/');
+		$base_uri = (App::get('base_url') != "") ? str_replace(App::get('base_url'), "", $_SERVER['REQUEST_URI']) : $_SERVER['REQUEST_URI'];
+		return trim(parse_url($base_uri, PHP_URL_PATH),  '/');
 	}
 
 	/**
