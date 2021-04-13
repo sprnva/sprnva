@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Request;
 use App\Core\Database\Migration\Migration;
+use App\Core\App;
 
 class MigrationController
 {
@@ -11,6 +12,10 @@ class MigrationController
 
 	public function index()
 	{
+		if (App::get('config')['app']['environment'] != "development") {
+			redirect('home');
+		}
+
 		$pageTitle = "Migration";
 
 		return view('migrations/index', compact('pageTitle'));
@@ -18,6 +23,10 @@ class MigrationController
 
 	public function run()
 	{
+		if (App::get('config')['app']['environment'] != "development") {
+			redirect('home');
+		}
+
 		$request = Request::validate('migration');
 
 		$migration = new Migration();
