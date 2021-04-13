@@ -66,9 +66,8 @@ class Router
 		}
 
 		if (array_key_exists($uri, $this->routes[$requestType])) {
-			return $this->callAction(
-				...explode('@', $this->routes[$requestType][$uri])
-			);
+			$splat  = explode('@', $this->routes[$requestType][$uri]);
+			return $this->callAction($splat[0], $splat[1]);
 		} else {
 			foreach ($this->routes[$requestType] as $key => $val) {
 				$pattern = preg_replace('#\(/\)#', '/?', $key);
