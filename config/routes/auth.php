@@ -12,3 +12,6 @@ $router->get("profile", 'ProfileController@index');
 $router->post('profile', 'ProfileController@update');
 $router->post('profile/changepass', 'ProfileController@changePass');
 $router->post('profile/delete', 'ProfileController@delete');
+
+$router->get("forgot/password", 'AuthController@forgotPassword');
+$router->post("forgot/password", 'AuthController@sendResetLink');

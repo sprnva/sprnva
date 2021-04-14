@@ -69,6 +69,7 @@ class Request
 				'login',
 				'register',
 				'welcome',
+				'forgot/password',
 				'migration',
 				'migrate-run'
 			]
