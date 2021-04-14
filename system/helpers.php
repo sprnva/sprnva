@@ -14,6 +14,10 @@ function view($name, $data = [])
 {
     extract($data);
 
+    if (!file_exists("app/views/{$name}.view.php")) {
+        throwExeption("View [{$name}] not found", new Exception());
+    }
+
     return require "app/views/{$name}.view.php";
 }
 
@@ -103,6 +107,15 @@ function randChar($length = 6)
         $str .= $characters[$rand];
     }
     return $str;
+}
+
+/**
+ * This will throw a exeption
+ */
+function throwExeption($message, $exeption = '')
+{
+    view('errors/exception', compact('message', 'exeption'));
+    exit();
 }
 
 
