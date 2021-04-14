@@ -10,6 +10,7 @@ $create_users_table = [
 		"fullname" => "varchar(200) DEFAULT NULL",
 		"username" => "varchar(150) DEFAULT NULL",
 		"password" => "text NOT NULL",
+		"role_id" => "int(11) DEFAULT NULL",
 		"updated_at" => "datetime DEFAULT NULL",
 		"created_at" => "datetime DEFAULT NULL",
 	],

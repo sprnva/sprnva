@@ -263,6 +263,24 @@ class Migrator
 		}
 	}
 
+	public function roleTableMigrate()
+	{
+		$isRoleTableExist = $this->schema->tableExist('role');
+		if (!$isRoleTableExist) {
+
+			$fileName = "20210408051901_create_role_table.php";
+			$dir = $this->migrationFiles . $fileName;
+			$content = file_get_contents($this->stubsPath . "user_role.stubs");
+
+			if (!file_exists($dir)) {
+				$handle = fopen($dir, 'w+');
+				fwrite($handle, $content);
+				fclose($handle);
+				chmod($dir, 0777);
+			}
+		}
+	}
+
 	/**
 	 * Determine if the given path is a file.
 	 * 
@@ -330,6 +348,7 @@ class Migrator
 		$response .= $this->schema->dropAllTables();
 		$response .= $this->runStoredDbSchema();
 		$this->userTableMigrate();
+		$this->roleTableMigrate();
 		$response .= $this->runPending();
 
 		return $response;
