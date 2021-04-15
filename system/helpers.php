@@ -15,7 +15,7 @@ function view($name, $data = [])
     extract($data);
 
     if (!file_exists("app/views/{$name}.view.php")) {
-        throwExeption("View [{$name}] not found", new Exception());
+        throwException("View [{$name}] not found", new Exception());
     }
 
     return require "app/views/{$name}.view.php";
@@ -32,7 +32,7 @@ function packageView($path, $data = [])
     extract($data);
 
     if (!file_exists("system/{$path}.view.php")) {
-        throwExeption("A package view [{$path}] not found", new Exception());
+        throwException("A package view [{$path}] not found", new Exception());
     }
 
     return require "system/{$path}.view.php";
@@ -132,7 +132,7 @@ function randChar($length = 6)
 /**
  * This will throw a exeption
  */
-function throwExeption($message, $exeption = '')
+function throwException($message, $exeption = '')
 {
     packageView('Exceptions/exception', compact('message', 'exeption'));
     exit();

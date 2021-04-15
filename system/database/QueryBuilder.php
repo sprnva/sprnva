@@ -84,7 +84,7 @@ class QueryBuilder
 				}
 			}
 		} catch (Exception $e) {
-			throwExeption("Whoops! error occurred.", $e);
+			throwException("Whoops! error occurred.", $e);
 		}
 	}
 
@@ -123,7 +123,7 @@ class QueryBuilder
 				return 0;
 			}
 		} catch (Exception $e) {
-			throwExeption("Whoops! error occurred.", $e);
+			throwException("Whoops! error occurred.", $e);
 		}
 	}
 
@@ -156,7 +156,7 @@ class QueryBuilder
 				return 0;
 			}
 		} catch (Exception $e) {
-			throwExeption("Whoops! error occurred.", $e);
+			throwException("Whoops! error occurred.", $e);
 		}
 	}
 
@@ -182,7 +182,7 @@ class QueryBuilder
 				}
 			}
 		} catch (Exception $e) {
-			throwExeption("Whoops! error occurred.", $e);
+			throwException("Whoops! error occurred.", $e);
 		}
 	}
 }

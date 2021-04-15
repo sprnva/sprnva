@@ -11,7 +11,14 @@ use App\Core\Database\Connection;
 
 require 'helpers.php';
 
-App::bind('config', require 'config/config.php');
+$config_file = 'config.php';
+if (!file_exists($config_file)) {
+    die("The [config.php] not found.");
+}
+
+require $config_file;
+
+App::bind('config', require __DIR__ . '/Config.php');
 
 App::bind(
     'base_url',

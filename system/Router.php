@@ -82,7 +82,7 @@ class Router
 			}
 		}
 
-		throwExeption("No route defined for [{$uri}]", new Exception());
+		throwException("No route defined for [{$uri}]", new Exception());
 	}
 
 	/**
@@ -94,7 +94,7 @@ class Router
 	protected function callAction($controller, $action, $paramerters = [])
 	{
 		if (class_exists($controller)) {
-			throwExeption("Controller [{$controller}] already exist.", new Exception());
+			throwException("Controller [{$controller}] already exist.", new Exception());
 		}
 
 		$useController = "App\\Controllers\\{$controller}";
@@ -102,7 +102,7 @@ class Router
 
 		if (!method_exists($controllerClass, $action)) {
 
-			throwExeption("{$controller} does not respond to the [{$action}] action.", new Exception());
+			throwException("{$controller} does not respond to the [{$action}] action.", new Exception());
 		}
 
 		return $controllerClass->$action($paramerters[0]);
