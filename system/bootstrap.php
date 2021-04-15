@@ -18,7 +18,7 @@ if (!file_exists($config_file)) {
 
 require $config_file;
 
-App::bind('config', require __DIR__ . '/Config.php');
+App::bind('config', require __DIR__ . '/EnvConfig.php');
 
 App::bind(
     'base_url',
