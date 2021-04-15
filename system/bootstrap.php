@@ -2,6 +2,9 @@
 
 error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 
+ini_set('date.timezone', 'Asia/Manila');
+date_default_timezone_set('Asia/Manila');
+
 use App\Core\App;
 use App\Core\Database\QueryBuilder;
 use App\Core\Database\Connection;
