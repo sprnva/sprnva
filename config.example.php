@@ -16,6 +16,11 @@ $config = [
     'environment' => 'development',
 
     // choices to encode: windows, macOS, linux
-    'os' => 'macOS'
+    'os' => 'macOS',
+
+    // EMAIL
+    'smtp_host' => '',
+    'smtp_sender' => '',
+    'smtp_password' => ''
 
 ];

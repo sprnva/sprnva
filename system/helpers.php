@@ -3,6 +3,9 @@
 session_start();
 
 use App\Core\App;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 /**
  * Require a view.
@@ -90,6 +93,52 @@ function sanitizeString($data)
     $data = htmlspecialchars($data);
 
     return $data;
+}
+
+/**
+ * This will send an email to a specified email-address
+ * 
+ * @param mixed $subject
+ * @param mixed $body
+ * @param string $requestEmail
+ */
+function sendMail($subject, $body, $requestEmail)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = App::get('config')['app']['smtp_host'];                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = App::get('config')['app']['smtp_sender'];                     //SMTP username
+        $mail->Password   = App::get('config')['app']['smtp_password'];                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+        //Recipients
+        $mail->setFrom('sprnva04@gmail.com', 'Sprnva');
+        $mail->addAddress($requestEmail);
+
+        //Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        $mail->send();
+
+        $result_msg = [
+            "Message has been sent",
+            "success"
+        ];
+    } catch (Exception $e) {
+        $result_msg = [
+            "Message could not be sent. Mailer Error: {$mail->ErrorInfo}",
+            "danger"
+        ];
+    }
+
+    redirect('forgot/password', $result_msg);
 }
 
 /**
