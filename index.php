@@ -19,7 +19,7 @@ require 'system/bootstrap.php';
  * direct the routes
  * 
  */
-Router::load('config/routes/web.php')
+Router::load('system/Routes.php')
 	->direct(
 		// request uri
 		Request::uri(),

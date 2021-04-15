@@ -22,6 +22,23 @@ function view($name, $data = [])
 }
 
 /**
+ * Require a package view.
+ *
+ * @param  string $path
+ * @param  array  $data
+ */
+function packageView($path, $data = [])
+{
+    extract($data);
+
+    if (!file_exists("system/{$path}.view.php")) {
+        throwExeption("A package view [{$path}] not found", new Exception());
+    }
+
+    return require "system/{$path}.view.php";
+}
+
+/**
  * Redirect to a new page.
  *
  * @param  string $path
@@ -117,7 +134,7 @@ function randChar($length = 6)
  */
 function throwExeption($message, $exeption = '')
 {
-    view('errors/exception', compact('message', 'exeption'));
+    packageView('Exceptions/views/exception', compact('message', 'exeption'));
     exit();
 }
 
