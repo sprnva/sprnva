@@ -44,7 +44,7 @@ class AuthController
             redirect('home');
         }
 
-        $pageTitle = "Reset Password";
+        $pageTitle = "Forgot Password";
         return view('auth/forgot-password', compact('pageTitle'));
     }
 
@@ -54,8 +54,30 @@ class AuthController
             'reset-email' => 'required',
         ]);
 
-        $subject = "Sprnva password reset link";
-        $body = "test email";
-        sendMail($subject, $body, $request['reset-email']);
+        $isEmailExist = App::get('database')->select("email", "users", "email = '" . $request['reset-email'] . "'");
+
+        if (!$isEmailExist) {
+            redirect('forgot/password', ['E-mail not found in the server.', 'danger']);
+        } else {
+
+            $token = md5(randChar('10'));
+
+            $subject = "Sprnva password reset link";
+            $body = "<a href='localhost/sprnva/" . $token . "'>Reset password</a>";
+            sendMail($subject, $body, $request['reset-email']);
+
+            $insertData = [
+                'email' => $request['reset-email'],
+                'token' => $token,
+                'created_at' => date("Y-m-d H:i:s")
+            ];
+            App::get('database')->insert('password_resets', $insertData);
+        }
+    }
+
+    public function resetPassword()
+    {
+        $pageTitle = "Reset Password";
+        return view('auth/password-reset', compact('pageTitle'));
     }
 }

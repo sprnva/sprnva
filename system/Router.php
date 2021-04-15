@@ -35,7 +35,7 @@ class Router
 	 * @param string $uri
 	 * @param string $controller
 	 */
-	public function get($uri, $controller)
+	public function get($uri, $controller = [])
 	{
 		$this->routes['GET'][$uri] = $controller;
 	}
@@ -46,7 +46,7 @@ class Router
 	 * @param string $uri
 	 * @param string $controller
 	 */
-	public function post($uri, $controller)
+	public function post($uri, $controller = [])
 	{
 		$this->routes['POST'][$uri] = $controller;
 	}
@@ -57,16 +57,13 @@ class Router
 	 * @param string $uri
 	 * @param string $requestType
 	 */
-	public function direct($uri, $requestType, $skipAuth = [])
+	public function direct($uri, $requestType)
 	{
-		if (!empty($skipAuth)) {
-			if (!Auth::isAuthorized($uri, $skipAuth)) {
-				redirect('login');
-			}
-		}
-
 		if (array_key_exists($uri, $this->routes[$requestType])) {
-			$splat  = explode('@', $this->routes[$requestType][$uri]);
+
+			Auth::routeGuardian($this->routes[$requestType][$uri][1]);
+
+			$splat  = explode('@', $this->routes[$requestType][$uri][0]);
 			return $this->callAction($splat[0], $splat[1]);
 		} else {
 			foreach ($this->routes[$requestType] as $key => $val) {
@@ -76,7 +73,10 @@ class Router
 				array_shift($matches);
 
 				if ($matches) {
-					$getAction = explode('@', $val);
+
+					Auth::routeGuardian($val[1]);
+
+					$getAction = explode('@', $val[0]);
 					return $this->callAction($getAction[0], $getAction[1], $matches);
 				}
 			}

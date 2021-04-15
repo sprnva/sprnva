@@ -36,17 +36,15 @@ class Request
 	 */
 	public static function validate($uri, $datas = [])
 	{
-		$errorList = "";
 		foreach ($datas as $key => $data) {
 			if (empty($_POST[$key])) {
-				$errorList .= "&bull; {$key} is required but has no value.<br>";
+				$errorList[] = "&bull; {$key} is required but has no value.";
 			}
 		}
 
 		if (!empty($errorList)) {
-			$_SESSION["RESPONSE_MSG"] = [$errorList, "danger"];
+			$_SESSION["RESPONSE_MSG"] = [implode('<br>', $errorList), "danger"];
 			redirect($uri);
-			exit();
 		}
 
 		foreach ($_POST as $key => $value) {
@@ -54,25 +52,5 @@ class Request
 		}
 
 		return $post_data;
-	}
-
-	/**
-	 * this will protect routes for being access in the
-	 * url without authentication
-	 * 
-	 */
-	public static function authProtection($switch = false)
-	{
-		// skip checking this route for authentication
-		return ($switch) ?
-			[
-				'login',
-				'register',
-				'welcome',
-				'forgot/password',
-				'migration',
-				'migrate-run'
-			]
-			: [];
 	}
 }

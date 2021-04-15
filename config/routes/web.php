@@ -1,5 +1,5 @@
 <?php
 
 // your routes goes here
-$router->get('', 'WelcomeController@home');
-$router->get('home', 'WelcomeController@home');
+$router->get('', ['WelcomeController@home', 'auth']);
+$router->get('home', ['WelcomeController@home', 'auth']);

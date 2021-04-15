@@ -9,7 +9,7 @@ use App\Core\App;
 use App\Core\Database\QueryBuilder;
 use App\Core\Database\Connection;
 
-require 'helpers.php';
+require 'Helpers.php';
 
 $config_file = 'config.php';
 if (!file_exists($config_file)) {

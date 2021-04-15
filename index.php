@@ -25,8 +25,5 @@ Router::load('system/Routes.php')
 		Request::uri(),
 
 		// the method use of the uri
-		Request::method(),
-
-		// protect routes if not authenticated
-		Request::authProtection(true)
+		Request::method()
 	);

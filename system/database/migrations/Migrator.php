@@ -245,6 +245,10 @@ class Migrator
 		}
 	}
 
+	/**
+	 * this will create a users migration
+	 * 
+	 */
 	public function userTableMigrate()
 	{
 		$isUserTableExist = $this->schema->tableExist('users');
@@ -263,14 +267,40 @@ class Migrator
 		}
 	}
 
+	/**
+	 * this will create a roles migration
+	 * 
+	 */
 	public function roleTableMigrate()
 	{
 		$isRoleTableExist = $this->schema->tableExist('role');
 		if (!$isRoleTableExist) {
 
-			$fileName = "20210408051901_create_role_table.php";
+			$fileName = "20210408051901_create_roles_table.php";
 			$dir = $this->migrationFiles . $fileName;
-			$content = file_get_contents($this->stubsPath . "user_role.stubs");
+			$content = file_get_contents($this->stubsPath . "user_roles.stubs");
+
+			if (!file_exists($dir)) {
+				$handle = fopen($dir, 'w+');
+				fwrite($handle, $content);
+				fclose($handle);
+				chmod($dir, 0777);
+			}
+		}
+	}
+
+	/**
+	 * this will create a password_resets migration
+	 * 
+	 */
+	public function passResetTableMigrate()
+	{
+		$isPassResetTableExist = $this->schema->tableExist('password_resets');
+		if (!$isPassResetTableExist) {
+
+			$fileName = "20210408051901_create_password_resets_table.php";
+			$dir = $this->migrationFiles . $fileName;
+			$content = file_get_contents($this->stubsPath . "password_resets.stubs");
 
 			if (!file_exists($dir)) {
 				$handle = fopen($dir, 'w+');
@@ -349,6 +379,7 @@ class Migrator
 		$response .= $this->runStoredDbSchema();
 		$this->userTableMigrate();
 		$this->roleTableMigrate();
+		$this->passResetTableMigrate();
 		$response .= $this->runPending();
 
 		return $response;

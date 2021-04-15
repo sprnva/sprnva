@@ -12,7 +12,7 @@ return [
 	],
 
 	'app' => [
-		'base_url' => $config["base_url"] . '/',
+		'base_url' => $config["base_url"],
 		'name' => $config["app_name"],
 
 		// choices: development, production
