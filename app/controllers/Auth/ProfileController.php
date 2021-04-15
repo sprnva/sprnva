@@ -53,12 +53,12 @@ class ProfileController
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
                 App::get('database')->update('users', $update_pass, "id = '$user_id'");
-                $_SESSION["CHANGE_PASS_SUCCESS"] = "Password has changed.";
+                $_SESSION["RESPONSE_MSG"] = ["Password has changed.", "success"];
             } else {
-                $_SESSION["CHANGE_PASS_ERROR"] = "Passwords must match.";
+                $_SESSION["RESPONSE_MSG"] = ["Passwords must match.", "danger"];
             }
         } else {
-            $_SESSION["CHANGE_PASS_ERROR"] = "Old password did not match.";
+            $_SESSION["RESPONSE_MSG"] = ["Old password did not match.", "danger"];
         }
 
         redirect("profile");

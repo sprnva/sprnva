@@ -38,6 +38,6 @@ class RegisterController
         ];
 
         App::get('database')->insert("users", $register_user);
-        redirect('register', "Success register");
+        redirect('register', ["Success register", "success"]);
     }
 }

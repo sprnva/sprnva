@@ -26,10 +26,13 @@ function view($name, $data = [])
  *
  * @param  string $path
  */
-function redirect($path, $message = "")
+function redirect($path, $message = [])
 {
     $path = App::get('base_url') . $path;
-    $_SESSION["ALERT_MSG"] = $message;
+    if (!empty($message)) {
+        $_SESSION["RESPONSE_MSG"] = $message;
+    }
+
     header("Location: {$path}");
 }
 
@@ -79,10 +82,10 @@ function sanitizeString($data)
  * @param string $errorSession
  * @param string $type
  */
-function msg($errorSession, $type = "danger")
+function msg($errorSession)
 {
     if (!empty($_SESSION[$errorSession])) {
-        $msg = "<div class='alert alert-" . $type . "' role='alert' style='border-left-width: 4px;'>" . $_SESSION[$errorSession] . "</div>";
+        $msg = "<div class='alert alert-" . $_SESSION[$errorSession][1] . "' role='alert' style='border-left-width: 4px;'>" . $_SESSION[$errorSession][0] . "</div>";
 
         unset($_SESSION[$errorSession]);
     } else {

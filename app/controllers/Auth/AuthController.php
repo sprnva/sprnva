@@ -75,9 +75,15 @@ class AuthController
         $result = $mail->send();
 
         if (!$result) {
-            $result_msg = "Message was not sent <br />PHPMailer Error: " . $mail->ErrorInfo;
+            $result_msg = [
+                "Message was not sent <br />PHPMailer Error: " . $mail->ErrorInfo,
+                "danger"
+            ];
         } else {
-            $result_msg = "Message has been sent";
+            $result_msg = [
+                "Message has been sent",
+                "success"
+            ];
         }
 
         redirect('forgot/password', $result_msg);

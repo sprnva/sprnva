@@ -37,7 +37,7 @@ class Auth
     public static function authenticate($datas)
     {
         if (!$datas) {
-            $_SESSION["VALIDATION_ERROR"] = "User not found.";
+            $_SESSION["RESPONSE_MSG"] = "User not found.";
             redirect('login');
             exit();
         }
