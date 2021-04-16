@@ -117,6 +117,13 @@ function sendMail($subject, $body, $recipients)
         $mail->Username   = App::get('config')['app']['smtp_sender'];
         $mail->Password   = App::get('config')['app']['smtp_password'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
         $mail->Port       = 587;
 
         //Recipients
