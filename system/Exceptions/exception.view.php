@@ -26,16 +26,17 @@ use App\Core\App;
     <script src="<?= public_url('/assets/js/popper.min.js') ?>"></script>
     <script src="<?= public_url('/assets/js/bootstrap.min.js') ?>"></script>
 </head>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-8">
+            <div class="card" style="margin-top: 10%;background-color: #fff; border: 0px; border-radius: 3px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);padding: 10px;">
+                <div class="card-body d-flex flex-column">
 
-<div class="row justify-content-md-center">
-    <div class="col-md-8">
-        <div class="card" style="margin-top: 10%;background-color: #fff; border: 0px; border-radius: 3px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);padding: 10px;">
-            <div class="card-body d-flex flex-column">
+                    <p class="mt-2 mb-0" style="font-size: 18px;font-weight: 500;"><?= $message ?></p>
+                    <small class="text-muted"><?= $exeption ?></small>
+                    <small class="text-muted mt-4">Sprnva blast</small>
 
-                <p class="mt-2 mb-0" style="font-size: 18px;font-weight: 500;"><?= $message ?></p>
-                <small class="text-muted"><?= $exeption ?></small>
-                <small class="text-muted mt-4">Sprnva blast</small>
-
+                </div>
             </div>
         </div>
     </div>
