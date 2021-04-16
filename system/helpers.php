@@ -101,9 +101,10 @@ function sanitizeString($data)
  * 
  * @param mixed $subject
  * @param mixed $body
- * @param string $requestEmail
+ * @param array $recipients
+ * @param string $redirect_route
  */
-function sendMail($subject, $body, $requestEmail)
+function sendMail($subject, $body, $recipients, $redirect_route)
 {
     $mail = new PHPMailer(true);
 
@@ -120,7 +121,7 @@ function sendMail($subject, $body, $requestEmail)
 
         //Recipients
         $mail->setFrom('sprnva04@gmail.com', 'Sprnva');
-        $mail->addAddress($requestEmail);
+        $mail->addAddress($recipients);
 
         //Content
         $mail->isHTML(true);
@@ -139,7 +140,7 @@ function sendMail($subject, $body, $requestEmail)
         ];
     }
 
-    redirect('forgot/password', $result_msg);
+    redirect($redirect_route, $result_msg);
 }
 
 /**

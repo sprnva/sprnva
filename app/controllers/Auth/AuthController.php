@@ -64,7 +64,7 @@ class AuthController
 
             $subject = "Sprnva password reset link";
             $body = "<a href='localhost/sprnva/" . $token . "'>Reset password</a>";
-            sendMail($subject, $body, $request['reset-email']);
+            sendMail($subject, $body, $request['reset-email'], 'forgot/password');
 
             $insertData = [
                 'email' => $request['reset-email'],
