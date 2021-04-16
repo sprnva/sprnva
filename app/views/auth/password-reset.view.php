@@ -36,9 +36,8 @@ use App\Core\App;
                         <?= msg('RESPONSE_MSG'); ?>
 
                         <form method="POST" action="<?= route('reset/password') ?>">
-                            <input type="hidden" name="token" value="<?= $user_password_resets['token'] ?>">
-                            <input type="hidden" name="email" value="<?= $user_password_resets['email'] ?>">
-                            <small class="text-muted">You can now update your password. <?= $token ?></small>
+                            <input type="hidden" name="token" value="<?= $token ?>">
+                            <small class="text-muted">You can now update your password.</small>
                             <div class="form-group mt-3">
                                 <label for="reset-email">New password</label>
                                 <input type="password" class="form-control" name="new_password" autocomplete="off" autofocus>

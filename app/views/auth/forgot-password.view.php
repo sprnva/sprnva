@@ -43,7 +43,7 @@ use App\Core\App;
                             </div>
                             <div class="d-flex justify-content-end">
                                 <a href="<?= route('login'); ?>" style="font-size: 18px;">
-                                    <small class="form-text text-muted mb-1">Remember password?</small>
+                                    <small class="form-text text-muted mb-1">Back to login?</small>
                                 </a>
                                 <div class="d-flex justify-content-end ml-3"><button type="submit" class="btn btn-secondary btn-sm text-rigth">SEND PASSWORD RESET LINK</button></div>
                             </div>

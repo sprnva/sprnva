@@ -84,9 +84,7 @@ class AuthController
     public function resetPassword($token)
     {
         $pageTitle = "Reset Password";
-
-        $user_password_resets = App::get('database')->select("*", "password_resets", "token = '$token'");
-        return view('auth/password-reset', compact('pageTitle', 'user_password_resets'));
+        return view('auth/password-reset', compact('pageTitle', 'token'));
     }
 
     public function passwordStore()
@@ -96,15 +94,22 @@ class AuthController
             'confirm_password' => 'required'
         ]);
 
-        if ($request["new_password"] == $request["confirm_password"]) {
-            $reset_password = [
-                'password' => md5($request['r_password']),
-                'updated_at' => date("Y-m-d H:i:s")
-            ];
-            App::get('database')->update("users", $reset_password, "email = '$request[email]'");
-            redirect('login', ["Success reset password", "success"]);
+        $isTokenLegit = App::get('database')->select("email", "password_resets", "token = '$request[token]'");
+        if ($isTokenLegit) {
+            if ($request["new_password"] == $request["confirm_password"]) {
+                $reset_password = [
+                    'password' => md5($request['new_password']),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ];
+
+                App::get('database')->update("users", $reset_password, "email = '$isTokenLegit[email]'");
+                App::get('database')->delete("password_resets", "email = '$isTokenLegit[email]' AND token = '$request[token]'");
+                redirect('login', ["Success reset password", "success"]);
+            } else {
+                redirect('reset/password/' . $request['token'], ["Passwords must match.", "danger"]);
+            }
         } else {
-            redirect('reset/password/' . $request['token'], ["Passwords must match.", "danger"]);
+            redirect('reset/password/' . $request['token'], ["Token is not authorized.", "danger"]);
         }
     }
 }

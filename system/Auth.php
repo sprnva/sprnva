@@ -21,7 +21,7 @@ class Auth
     public static function authenticate($datas)
     {
         if (!$datas) {
-            $_SESSION["RESPONSE_MSG"] = "User not found.";
+            $_SESSION["RESPONSE_MSG"] = ["User not found.", 'danger'];
             redirect('login');
         }
 
