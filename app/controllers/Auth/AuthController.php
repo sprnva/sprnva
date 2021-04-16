@@ -66,7 +66,7 @@ class AuthController
             $emailTemplate = file_get_contents(__DIR__ . '/../../../system/Email/stubs/email.stubs');
 
             $app_name = ["{{app_name}}", "{{username}}", "{{link_token}}", "{{year}}"];
-            $values = [App::get('config')['app']['name'], $isEmailExist['fullname'], "localhost/sprnva/" . $token, date('Y')];
+            $values = [App::get('config')['app']['name'], $isEmailExist['fullname'], "localhost/sprnva/reset/password/" . $token, date('Y')];
             $body_content = str_replace($app_name, $values, $emailTemplate);
 
             $body = $body_content;
@@ -81,9 +81,30 @@ class AuthController
         }
     }
 
-    public function resetPassword()
+    public function resetPassword($token)
     {
         $pageTitle = "Reset Password";
-        return view('auth/password-reset', compact('pageTitle'));
+
+        $user_password_resets = App::get('database')->select("*", "password_resets", "token = '$token'");
+        return view('auth/password-reset', compact('pageTitle', 'user_password_resets'));
+    }
+
+    public function passwordStore()
+    {
+        $request = Request::validate('reset/password/' . $_POST['token'], [
+            'new_password' => 'required',
+            'confirm_password' => 'required'
+        ]);
+
+        if ($request["new_password"] == $request["confirm_password"]) {
+            $reset_password = [
+                'password' => md5($request['r_password']),
+                'updated_at' => date("Y-m-d H:i:s")
+            ];
+            App::get('database')->update("users", $reset_password, "email = '$request[email]'");
+            redirect('login', ["Success reset password", "success"]);
+        } else {
+            redirect('reset/password/' . $request['token'], ["Passwords must match.", "danger"]);
+        }
     }
 }

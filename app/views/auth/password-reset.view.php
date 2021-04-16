@@ -35,21 +35,20 @@ use App\Core\App;
 
                         <?= msg('RESPONSE_MSG'); ?>
 
-                        <form method="POST" action="<?= route('forgot/password') ?>">
-                            <small class="text-muted">You can now update your password.</small>
+                        <form method="POST" action="<?= route('reset/password') ?>">
+                            <input type="hidden" name="token" value="<?= $user_password_resets['token'] ?>">
+                            <input type="hidden" name="email" value="<?= $user_password_resets['email'] ?>">
+                            <small class="text-muted">You can now update your password. <?= $token ?></small>
                             <div class="form-group mt-3">
                                 <label for="reset-email">New password</label>
-                                <input type="text" class="form-control" name="reset-email" autocomplete="off" autofocus>
+                                <input type="password" class="form-control" name="new_password" autocomplete="off" autofocus>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="reset-email">Confirm password</label>
-                                <input type="text" class="form-control" name="reset-email" autocomplete="off" autofocus>
+                                <input type="password" class="form-control" name="confirm_password" autocomplete="off" autofocus>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="<?= route('login'); ?>" style="font-size: 18px;">
-                                    <small class="form-text text-muted mb-1">Remember password?</small>
-                                </a>
-                                <div class="d-flex justify-content-end ml-3"><button type="submit" class="btn btn-secondary btn-sm text-rigth">SEND PASSWORD RESET LINK</button></div>
+                                <div class="d-flex justify-content-end ml-3"><button type="submit" class="btn btn-secondary btn-sm text-rigth">SAVE PASSWORD</button></div>
                             </div>
                         </form>
                     </div>

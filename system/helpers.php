@@ -110,7 +110,7 @@ function sendMail($subject, $body, $recipients, $redirect_route)
 
     try {
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->SMTPDebug = 0;
         $mail->isSMTP();
         $mail->Host       = App::get('config')['app']['smtp_host'];
         $mail->SMTPAuth   = true;

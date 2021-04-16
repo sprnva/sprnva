@@ -16,3 +16,4 @@ $router->post('profile/delete', ['ProfileController@delete', 'auth']);
 $router->get("forgot/password", ['AuthController@forgotPassword']);
 $router->post("forgot/password", ['AuthController@sendResetLink']);
 $router->get("reset/password/{id}", ['AuthController@resetPassword']);
+$router->post("reset/password", ['AuthController@passwordStore']);
