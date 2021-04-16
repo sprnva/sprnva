@@ -15,9 +15,6 @@ $config = [
     // choices: development, production
     'environment' => 'development',
 
-    // choices to encode: windows, macOS, linux
-    'os' => 'macOS',
-
     // EMAIL
     'smtp_host' => '',
     'smtp_sender' => '',

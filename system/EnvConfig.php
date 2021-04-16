@@ -18,9 +18,6 @@ return [
 		// choices: development, production
 		'environment' => $config["environment"],
 
-		// choices to encode: windows, macOS, linux
-		'OS' => $config["os"],
-
 		// EMAIL
 		'smtp_host' => $config["smtp_host"],
 		'smtp_sender' => $config["smtp_sender"],
