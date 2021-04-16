@@ -54,7 +54,7 @@ class AuthController
             'reset-email' => 'required',
         ]);
 
-        $isEmailExist = App::get('database')->select("email", "users", "email = '" . $request['reset-email'] . "'");
+        $isEmailExist = App::get('database')->select("*", "users", "email = '" . $request['reset-email'] . "'");
 
         if (!$isEmailExist) {
             redirect('forgot/password', ['E-mail not found in the server.', 'danger']);
@@ -63,7 +63,13 @@ class AuthController
             $token = md5(randChar('10'));
 
             $subject = "Sprnva password reset link";
-            $body = "<a href='localhost/sprnva/" . $token . "'>Reset password</a>";
+            $emailTemplate = file_get_contents(__DIR__ . '/../../../system/Email/stubs/email.stubs');
+
+            $app_name = ["{{app_name}}", "{{username}}", "{{link_token}}", "{{year}}"];
+            $values = [App::get('config')['app']['name'], $isEmailExist['fullname'], "localhost/sprnva/" . $token, date('Y')];
+            $body_content = str_replace($app_name, $values, $emailTemplate);
+
+            $body = $body_content;
             sendMail($subject, $body, $request['reset-email'], 'forgot/password');
 
             $insertData = [
