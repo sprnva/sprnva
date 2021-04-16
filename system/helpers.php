@@ -104,13 +104,13 @@ function sanitizeString($data)
  * @param array $recipients
  * @param string $redirect_route
  */
-function sendMail($subject, $body, $recipients, $redirect_route)
+function sendMail($subject, $body, $recipients)
 {
     $mail = new PHPMailer(true);
 
     try {
         //Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->SMTPDebug = 0;
         $mail->isSMTP();
         $mail->Host       = App::get('config')['app']['smtp_host'];
         $mail->SMTPAuth   = true;
@@ -140,7 +140,7 @@ function sendMail($subject, $body, $recipients, $redirect_route)
         ];
     }
 
-    redirect($redirect_route, $result_msg);
+    return $result_msg;
 }
 
 /**

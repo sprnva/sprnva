@@ -70,14 +70,18 @@ class AuthController
             $body_content = str_replace($app_name, $values, $emailTemplate);
 
             $body = $body_content;
-            sendMail($subject, $body, $request['reset-email'], 'forgot/password');
+            $isSent = sendMail($subject, $body, $request['reset-email']);
 
-            $insertData = [
-                'email' => $request['reset-email'],
-                'token' => $token,
-                'created_at' => date("Y-m-d H:i:s")
-            ];
-            App::get('database')->insert('password_resets', $insertData);
+            if ($isSent[1] == "success") {
+                $insertData = [
+                    'email' => $request['reset-email'],
+                    'token' => $token,
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
+                App::get('database')->insert('password_resets', $insertData);
+            }
+
+            redirect('forgot/password', $isSent);
         }
     }
 
