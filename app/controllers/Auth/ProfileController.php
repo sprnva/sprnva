@@ -33,7 +33,7 @@ class ProfileController
         ];
 
         App::get('database')->update('users', $update_data, "id = '$user_id'");
-        redirect("profile");
+        redirect("profile", ["Profile information updated.", 'success']);
     }
 
     public function changePass()
