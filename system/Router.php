@@ -35,7 +35,7 @@ class Router
 	 * @param string $uri
 	 * @param string $controller
 	 */
-	public function get($uri, $controller = [])
+	public function get($uri, $controller)
 	{
 		$this->routes['GET'][$uri] = $controller;
 	}
@@ -46,7 +46,7 @@ class Router
 	 * @param string $uri
 	 * @param string $controller
 	 */
-	public function post($uri, $controller = [])
+	public function post($uri, $controller)
 	{
 		$this->routes['POST'][$uri] = $controller;
 	}
