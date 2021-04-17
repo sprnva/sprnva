@@ -13,7 +13,7 @@ use App\Core\App;
         <?= ucfirst($pageTitle) . " | " . App::get('config')['app']['name']; ?>
     </title>
 
-    <link rel="stylesheet" href="<?= public_url('/assets/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/bootstrap.min.css') ?>">
 
     <style>
         body {
@@ -21,9 +21,9 @@ use App\Core\App;
         }
     </style>
 
-    <script src="<?= public_url('/assets/js/jquery-3.6.0.min.js') ?>"></script>
-    <script src="<?= public_url('/assets/js/popper.min.js') ?>"></script>
-    <script src="<?= public_url('/assets/js/bootstrap.min.js') ?>"></script>
+    <script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
+    <script src="<?= public_url('/assets/sprnva/js/popper.min.js') ?>"></script>
+    <script src="<?= public_url('/assets/sprnva/js/bootstrap.min.js') ?>"></script>
 </head>
 
 <body>
@@ -38,8 +38,8 @@ use App\Core\App;
                         <form method="POST" action="<?= route('forgot/password') ?>">
                             <small class="text-muted">Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</small>
                             <div class="form-group mt-3">
-                                <label for="reset-email">E-mail</label>
-                                <input type="text" class="form-control" name="reset-email" autocomplete="off" autofocus>
+                                <label for="email">E-mail</label>
+                                <input type="email" class="form-control" name="email" autocomplete="off" autofocus>
                             </div>
                             <div class="d-flex justify-content-end">
                                 <a href="<?= route('login'); ?>" style="font-size: 18px;">

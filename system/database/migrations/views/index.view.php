@@ -13,7 +13,7 @@ use App\Core\App;
 		<?= ucfirst($pageTitle) . " | " . App::get('config')['app']['name']; ?>
 	</title>
 
-	<link rel="stylesheet" href="<?= public_url('/assets/css/bootstrap.min.css') ?>">
+	<link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/bootstrap.min.css') ?>">
 
 	<style>
 		body {
@@ -21,9 +21,9 @@ use App\Core\App;
 		}
 	</style>
 
-	<script src="<?= public_url('/assets/js/jquery-3.6.0.min.js') ?>"></script>
-	<script src="<?= public_url('/assets/js/popper.min.js') ?>"></script>
-	<script src="<?= public_url('/assets/js/bootstrap.min.js') ?>"></script>
+	<script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
+	<script src="<?= public_url('/assets/sprnva/js/popper.min.js') ?>"></script>
+	<script src="<?= public_url('/assets/sprnva/js/bootstrap.min.js') ?>"></script>
 </head>
 
 <body>

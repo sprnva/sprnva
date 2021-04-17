@@ -38,30 +38,14 @@ class ProfileController
 
     public function changePass()
     {
-        $user_id = Auth::user('id');
-
         $request = Request::validate('profile', [
             'old-password' => 'required',
             'new-password' => 'required',
             'confirm-password' => 'required'
         ]);
 
-        if (md5($request["old-password"]) == Auth::user('password')) {
-            if ($request["new-password"] == $request["confirm-password"]) {
-                $update_pass = [
-                    'password' => md5($request["new-password"]),
-                    'updated_at' => date("Y-m-d H:i:s")
-                ];
-                App::get('database')->update('users', $update_pass, "id = '$user_id'");
-                $_SESSION["RESPONSE_MSG"] = ["Password has changed.", "success"];
-            } else {
-                $_SESSION["RESPONSE_MSG"] = ["Passwords must match.", "danger"];
-            }
-        } else {
-            $_SESSION["RESPONSE_MSG"] = ["Old password did not match.", "danger"];
-        }
-
-        redirect("profile");
+        $response_message = Auth::resetPassword($request);
+        redirect("profile", $response_message);
     }
 
     public function delete()
@@ -69,7 +53,6 @@ class ProfileController
         $user_id = Auth::user('id');
         App::get('database')->delete('users', "id = '$user_id'");
 
-        session_destroy();
-        redirect('login');
+        Auth::logout();
     }
 }

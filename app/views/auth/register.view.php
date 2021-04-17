@@ -13,7 +13,7 @@ use App\Core\App;
         <?= ucfirst($pageTitle) . " | " . App::get('config')['app']['name']; ?>
     </title>
 
-    <link rel="stylesheet" href="<?= public_url('/assets/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/bootstrap.min.css') ?>">
 
     <style>
         body {
@@ -21,9 +21,9 @@ use App\Core\App;
         }
     </style>
 
-    <script src="<?= public_url('/assets/js/jquery-3.6.0.min.js') ?>"></script>
-    <script src="<?= public_url('/assets/js/popper.min.js') ?>"></script>
-    <script src="<?= public_url('/assets/js/bootstrap.min.js') ?>"></script>
+    <script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
+    <script src="<?= public_url('/assets/sprnva/js/popper.min.js') ?>"></script>
+    <script src="<?= public_url('/assets/sprnva/js/bootstrap.min.js') ?>"></script>
 </head>
 
 <body>
@@ -35,25 +35,25 @@ use App\Core\App;
                 </div>
                 <div class="card mt-4" style="background-color: #fff; border: 0px; border-radius: 8px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
                     <div class="card-body">
-                        <?= msg('RESPONSE_MSG'); ?>
 
+                        <?= msg('RESPONSE_MSG'); ?>
 
                         <form method="POST" action="<?= route('register') ?>">
                             <div class="form-group">
-                                <label for="r_email">E-mail</label>
-                                <input type="text" class="form-control" name="r_email" autocomplete="off" autofocus>
+                                <label for="email">E-mail</label>
+                                <input type="email" class="form-control" name="email" autocomplete="off" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" name="r_name" autocomplete="off">
+                                <input type="text" class="form-control" name="name" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" name="r_username" autocomplete="off">
+                                <input type="text" class="form-control" name="username" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" name="r_password" autocomplete="off">
+                                <input type="password" class="form-control" name="password" autocomplete="off">
                             </div>
 
                             <div class="d-flex justify-content-end">
@@ -68,10 +68,6 @@ use App\Core\App;
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 

@@ -12,9 +12,7 @@ class RegisterController
 
     public function index()
     {
-        if (Auth::isAuthenticated()) {
-            redirect('home');
-        }
+        Auth::isAuthenticated();
 
         $pageTitle = "Register";
         return view('auth/register', compact('pageTitle'));
@@ -23,16 +21,16 @@ class RegisterController
     public function store()
     {
         $request = Request::validate('register', [
-            'r_email' => 'required',
-            'r_username' => 'required',
-            'r_password' => 'required',
+            'email' => 'required',
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
         $register_user = [
-            'email' => $request['r_email'],
-            'fullname' => $request['r_name'],
-            'username' => $request['r_username'],
-            'password' => md5($request['r_password']),
+            'email' => $request['email'],
+            'fullname' => $request['name'],
+            'username' => $request['username'],
+            'password' => md5($request['password']),
             'updated_at' => date("Y-m-d H:i:s"),
             'created_at' => date("Y-m-d H:i:s")
         ];

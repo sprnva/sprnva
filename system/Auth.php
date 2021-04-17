@@ -10,7 +10,9 @@ class Auth
      */
     public static function isAuthenticated()
     {
-        return (!empty($_SESSION["AUTH"]['id'])) ? 1 : 0;
+        if (!empty(static::user('id'))) {
+            redirect('home');
+        }
     }
 
     /**
@@ -18,11 +20,12 @@ class Auth
      * 
      * @param array $datas
      */
-    public static function authenticate($datas)
+    public static function authenticate($request)
     {
+        $datas = App::get('database')->select("*", "users", "username = '$request[username]' AND password = md5('$request[password]')");
+
         if (!$datas) {
-            $_SESSION["RESPONSE_MSG"] = ["User not found.", 'danger'];
-            redirect('login');
+            redirect('login', ["User not found.", 'danger']);
         }
 
         $users = [];
@@ -52,10 +55,90 @@ class Auth
     {
         if (!empty($middleware)) {
             if ($middleware == 'auth') {
-                if (!static::isAuthenticated()) {
+                if (empty(static::user('id'))) {
                     redirect('login');
                 }
             }
+        }
+    }
+
+    /**
+     * removed the authenticated information stored in session
+     * 
+     */
+    public static function logout()
+    {
+        session_destroy();
+        redirect('login');
+    }
+
+    /**
+     * reset users password
+     * used in profile reset password
+     * 
+     */
+    public static function resetPassword($request)
+    {
+        $user_id = Auth::user('id');
+
+        if (md5($request["old-password"]) == Auth::user('password')) {
+            if ($request["new-password"] == $request["confirm-password"]) {
+                $update_pass = [
+                    'password' => md5($request["new-password"]),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ];
+                App::get('database')->update('users', $update_pass, "id = '$user_id'");
+                $response_message = ["Password has changed.", "success"];
+            } else {
+                $response_message = ["Passwords must match.", "danger"];
+            }
+        } else {
+            $response_message = ["Old password did not match.", "danger"];
+        }
+
+        return $response_message;
+    }
+
+    /**
+     * will reset password using a token
+     * used in forgot-password module
+     * 
+     */
+    public static function resetPasswordWithToken($request)
+    {
+        $isTokenLegit = App::get('database')->select("email", "password_resets", "token = '$request[token]'");
+
+        if ($isTokenLegit) {
+
+            if ($request["new_password"] == $request["confirm_password"]) {
+
+                $reset_password = [
+                    'password' => md5($request['new_password']),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ];
+
+                App::get('database')->update("users", $reset_password, "email = '$isTokenLegit[email]'");
+
+                App::get('database')->delete("password_resets", "email = '$isTokenLegit[email]' AND token = '$request[token]'");
+
+                redirect('login', ["Success reset password", "success"]);
+            } else {
+                redirect('reset/password/' . $request['token'], ["Passwords must match.", "danger"]);
+            }
+        } else {
+            redirect('reset/password/' . $request['token'], ["Token is not authorized.", "danger"]);
+        }
+    }
+
+    /**
+     * check if the user is allowed to 
+     * access a page base on roles
+     * 
+     */
+    public static function userIsAuthorized()
+    {
+        if (!static::user('role_id') == 1) {
+            redirect('home');
         }
     }
 }
