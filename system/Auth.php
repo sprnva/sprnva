@@ -137,7 +137,7 @@ class Auth
      */
     public static function userIsAuthorized()
     {
-        if (!static::user('role_id') == 1) {
+        if (static::user('role_id') != 1) {
             redirect('home');
         }
     }
