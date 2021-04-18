@@ -22,6 +22,8 @@ return [
 		'smtp_host' => $config["smtp_host"],
 		'smtp_sender' => $config["smtp_sender"],
 		'smtp_password' => $config["smtp_password"],
+		'smtp_auth' => $config["smtp_auth"],
+		'smtp_auto_tls' => $config["smtp_auto_tls"],
 		'smtp_port' => $config["smtp_port"]
 	]
 ];

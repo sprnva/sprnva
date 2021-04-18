@@ -19,6 +19,8 @@ $config = [
     'smtp_host' => '',
     'smtp_sender' => '',
     'smtp_password' => '',
+    'smtp_auth' => true,
+    'smtp_auto_tls' => true,
     'smtp_port' => 25
 
 ];

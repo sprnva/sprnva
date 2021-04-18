@@ -113,7 +113,8 @@ function sendMail($subject, $body, $recipients)
         $mail->SMTPDebug = 0;
         $mail->isSMTP();
         $mail->Host       = App::get('config')['app']['smtp_host'];
-        $mail->SMTPAuth   = true;
+        $mail->SMTPAuth   = App::get('config')['app']['smtp_auth'];
+        $mail->SMTPAutoTLS = App::get('config')['app']['smtp_auto_tls'];
         $mail->Username   = App::get('config')['app']['smtp_sender'];
         $mail->Password   = App::get('config')['app']['smtp_password'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
