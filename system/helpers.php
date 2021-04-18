@@ -124,7 +124,7 @@ function sendMail($subject, $body, $recipients)
                 'allow_self_signed' => true
             )
         );
-        $mail->Port       = 587;
+        $mail->Port       = App::get('config')['app']['smtp_port'];
 
         //Recipients
         $mail->setFrom('sprnva04@gmail.com', 'Sprnva');

@@ -21,6 +21,7 @@ return [
 		// EMAIL
 		'smtp_host' => $config["smtp_host"],
 		'smtp_sender' => $config["smtp_sender"],
-		'smtp_password' => $config["smtp_password"]
+		'smtp_password' => $config["smtp_password"],
+		'smtp_port' => $config["smtp_port"]
 	]
 ];
