@@ -20,7 +20,7 @@ $config = [
 
     // EMAIL
     'smtp_host' => '',
-    'smtp_sender' => '',
+    'smtp_username' => '',
     'smtp_password' => '',
     'smtp_auth' => true,
     'smtp_auto_tls' => true,
