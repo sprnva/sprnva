@@ -15,6 +15,9 @@ return [
 		'base_url' => $config["base_url"],
 		'name' => $config["app_name"],
 
+		// choices: windows, macOS, linux
+		'os' => $config["os"],
+
 		// choices: development, production
 		'environment' => $config["environment"],
 

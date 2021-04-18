@@ -12,6 +12,9 @@ $config = [
     'base_url' => 'sprnva/',
     'app_name' => 'SPRNVA',
 
+    // choices: windows, macOS, linux
+    'os' => 'windows',
+
     // choices: development, production
     'environment' => 'development',
 

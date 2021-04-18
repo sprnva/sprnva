@@ -10,7 +10,7 @@ class SchemaFactory
 	{
 		$this->schemaFilePath = $schemaPath . $schemaName;
 
-		switch (getOS()) {
+		switch (App::get('config')['app']['os']) {
 			case 'windows':
 				$this->mysqlPath = "C:\\xampp\\mysql\\bin\\";
 				break;

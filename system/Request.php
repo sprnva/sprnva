@@ -70,7 +70,7 @@ class Request
 	 */
 	public static function passwordResetLink($request)
 	{
-		$isEmailExist = App::get('database')->select("*", "users", "email = '" . $request['reset-email'] . "'");
+		$isEmailExist = App::get('database')->select("*", "users", "email = '" . $request['email'] . "'");
 
 		if (!$isEmailExist) {
 			redirect('forgot/password', ['E-mail not found in the server.', 'danger']);
@@ -82,19 +82,33 @@ class Request
 			$emailTemplate = file_get_contents('system/Email/stubs/email.stubs');
 
 			$app_name = ["{{app_name}}", "{{username}}", "{{link_token}}", "{{year}}"];
-			$values = [App::get('config')['app']['name'], $isEmailExist['fullname'], "localhost/sprnva/reset/password/" . $token, date('Y')];
+			$values = [
+				App::get('config')['app']['name'],
+				$isEmailExist['fullname'],
+				$_SERVER['SERVER_NAME'] . "/" . App::get('config')['app']['base_url'] . "reset/password/" . $token,
+				date('Y')
+			];
 			$body_content = str_replace($app_name, $values, $emailTemplate);
 
 			$body = $body_content;
-			$isSent = sendMail($subject, $body, $request['reset-email']);
+
+			$isSent = sendMail($subject, $body, $request['email']);
 
 			if ($isSent[1] == "success") {
+
 				$insertData = [
-					'email' => $request['reset-email'],
+					'email' => $request['email'],
 					'token' => $token,
 					'created_at' => date("Y-m-d H:i:s")
 				];
-				App::get('database')->insert('password_resets', $insertData);
+
+				$hasResetPending = App::get('database')->select("email", "password_resets", "email = '" . $request['email'] . "'");
+
+				if (!empty($hasResetPending['email'])) {
+					App::get('database')->update('password_resets', $insertData, "email = '" . $request['email'] . "'");
+				} else {
+					App::get('database')->insert('password_resets', $insertData);
+				}
 			}
 
 			redirect('forgot/password', $isSent);
