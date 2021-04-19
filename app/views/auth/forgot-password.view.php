@@ -36,6 +36,7 @@ use App\Core\App;
                         <?= msg('RESPONSE_MSG'); ?>
 
                         <form method="POST" action="<?= route('forgot/password') ?>">
+                            <?= csrf() ?>
                             <small class="text-muted">Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</small>
                             <div class="form-group mt-3">
                                 <label for="email">E-mail</label>

@@ -3,9 +3,12 @@
 session_start();
 
 use App\Core\App;
+use App\Core\Request;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
+Request::csrf_token();
 
 /**
  * Require a view.
@@ -268,7 +271,14 @@ function getBrowser()
     return $browser;
 }
 
-
+/**
+ * this will add a hidden input with csrf token
+ * 
+ */
+function csrf()
+{
+    return "<input type='hidden' name='_token' value='" . Request::csrf_token() . "'>";
+}
 
 // add additional helper functions from the users
 require __DIR__ . '/../config/function.helpers.php';

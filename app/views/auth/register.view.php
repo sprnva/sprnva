@@ -39,6 +39,7 @@ use App\Core\App;
                         <?= msg('RESPONSE_MSG'); ?>
 
                         <form method="POST" action="<?= route('register') ?>">
+                            <?= csrf() ?>
                             <div class="form-group">
                                 <label for="email">E-mail</label>
                                 <input type="email" class="form-control" name="email" autocomplete="off" autofocus>

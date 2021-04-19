@@ -34,7 +34,7 @@ class Request
 	 * Validates the POST method inputs
 	 * 
 	 */
-	public static function validate($uri, $datas = [])
+	public static function validate($uri = '', $datas = [])
 	{
 		foreach ($datas as $key => $data) {
 			if ($data == "required") {
@@ -46,6 +46,10 @@ class Request
 
 		if (!empty($errorList)) {
 			redirect($uri, [implode('<br>', $errorList), "danger"]);
+		}
+
+		if (isset($_POST['_token'])) {
+			static::verifyCsrfToken($_POST['_token']);
 		}
 
 		foreach ($_POST as $key => $value) {
@@ -113,5 +117,59 @@ class Request
 
 			redirect('forgot/password', $isSent);
 		}
+	}
+
+	/**
+	 * generates a csrf token
+	 * 
+	 */
+	public static function csrf_token()
+	{
+		if (!isset($_SESSION["csrf_token"])) {
+			$_SESSION["csrf_token"] = md5(bin2hex(randChar(20)));
+		} else {
+			$token = $_SESSION["csrf_token"];
+		}
+
+		return $token;
+	}
+
+	/**
+	 * verifies csrf token
+	 * 
+	 */
+	public static function verifyCsrfToken($request)
+	{
+		if (!static::tokensMatch($request)) {
+			throwException('419 | Page expired.');
+		}
+	}
+
+	/**
+	 * match secret token vs users token
+	 * 
+	 */
+	public static function tokensMatch($request)
+	{
+		if (strlen($_SESSION["csrf_token"]) != strlen($request)) {
+			return false;
+		} else {
+			$res = $_SESSION["csrf_token"] ^ $request;
+			$ret = 0;
+			for ($i = strlen($res) - 1; $i >= 0; $i--) {
+				$ret |= ord($res[$i]);
+			}
+
+			return !$ret;
+		}
+	}
+
+	/**
+	 * renew the csrf token
+	 * 
+	 */
+	public static function renewCsrfToken()
+	{
+		$_SESSION["csrf_token"] = md5(bin2hex(randChar(20)));
 	}
 }

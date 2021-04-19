@@ -50,6 +50,7 @@ class ProfileController
 
     public function delete()
     {
+        Request::validate();
         $user_id = Auth::user('id');
         App::get('database')->delete('users', "id = '$user_id'");
 

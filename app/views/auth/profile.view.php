@@ -17,6 +17,7 @@ use App\Core\App; ?>
                     <div class="card-body">
 
                         <form method="POST" action="<?= route('profile') ?>">
+                            <?= csrf() ?>
                             <div class="form-group">
                                 <label for="username">E-mail</label>
                                 <input type="email" class="form-control" name="email" autocomplete="off" value="<?= $user_data['email'] ?>">
@@ -37,6 +38,7 @@ use App\Core\App; ?>
                         <?= msg('RESPONSE_MSG'); ?>
 
                         <form method="POST" action="<?= route('profile/changepass') ?>">
+                            <?= csrf() ?>
                             <div class="form-group">
                                 <label for="username">Old Password</label>
                                 <input type="password" class="form-control" name="old-password" autocomplete="off">
@@ -65,6 +67,7 @@ use App\Core\App; ?>
                         </div>
 
                         <form method="POST" action="<?= route('profile/delete') ?>">
+                            <?= csrf() ?>
                             <div class="d-flex justify-content-end"><button type="submit" class="btn btn-danger btn-sm text-rigth">DELETE ACCOUNT</button></div>
                         </form>
                     </div>

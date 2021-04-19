@@ -30,7 +30,8 @@ class AuthController
 
     public function logout()
     {
-        Auth::logout();
+        $request = Request::validate();
+        Auth::logout($request);
     }
 
     public function forgotPassword()

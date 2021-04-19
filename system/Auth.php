@@ -34,6 +34,8 @@ class Auth
         }
 
         $_SESSION["AUTH"] = $users;
+        Request::renewCsrfToken();
+
         redirect('home');
     }
 
@@ -66,10 +68,16 @@ class Auth
      * removed the authenticated information stored in session
      * 
      */
-    public static function logout()
+    public static function logout($request = '')
     {
-        session_destroy();
-        redirect('login');
+        if (!empty($request)) {
+            Request::verifyCsrfToken($request['_token']);
+            static::sessionInvalidate();
+            redirect('login');
+        } else {
+            static::sessionInvalidate();
+            redirect('login');
+        }
     }
 
     /**
@@ -140,5 +148,10 @@ class Auth
         if (static::user('role_id') != 1) {
             redirect('home');
         }
+    }
+
+    public static function sessionInvalidate()
+    {
+        session_destroy();
     }
 }
