@@ -58,7 +58,7 @@ use App\Core\App;
                             <?= csrf() ?>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" name="username" value="<?= old('username') ?>" autocomplete="off" autofocus>
+                                <input type="text" class="form-control" name="username" autocomplete="off" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
