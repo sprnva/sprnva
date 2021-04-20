@@ -14,7 +14,7 @@ Sprnva is designed using bootstrap 4 and offers your choice of using different s
 - built in login and registration
 - forgot password with email sending password reset link
 - inspired in MVC approach
-- simple database migration <i>(worry no more in setting up your database environment on your workstation)</i>
+- simple database migration <i>(sync database development for everyone)</i>
 - can send email with just a simple setup
 - bootstrap 4 stack (can use diffrent stacks)
 - jquery-3.6.0 stack (can use diffrent stacks)
