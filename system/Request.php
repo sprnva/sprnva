@@ -36,6 +36,7 @@ class Request
 	 */
 	public static function validate($uri = '', $datas = [])
 	{
+
 		foreach ($datas as $key => $data) {
 			if ($data == "required") {
 				if (empty($_POST[$key])) {
@@ -43,6 +44,12 @@ class Request
 				}
 			}
 		}
+
+		foreach ($_POST as $key => $value) {
+			$post_data[$key] = sanitizeString($value);
+		}
+
+		static::storeValidatedToSession($post_data);
 
 		if (!empty($errorList)) {
 			redirect($uri, [implode('<br>', $errorList), "danger"]);
@@ -52,11 +59,28 @@ class Request
 			static::verifyCsrfToken($_POST['_token']);
 		}
 
-		foreach ($_POST as $key => $value) {
-			$post_data[$key] = sanitizeString($value);
-		}
-
 		return $post_data;
+	}
+
+	/**
+	 * store validated request to session
+	 * 
+	 */
+	private static function storeValidatedToSession($validatedRequest)
+	{
+		unset($_SESSION['OLD']);
+		$_SESSION['OLD'] = $validatedRequest;
+	}
+
+	/**
+	 * get the old input values
+	 * 
+	 */
+	public static function old($inputName)
+	{
+		return (!empty($inputName) && isset($_SESSION['OLD']) && array_key_exists($inputName, $_SESSION['OLD']))
+			? $_SESSION['OLD'][$inputName]
+			: '';
 	}
 
 	/**

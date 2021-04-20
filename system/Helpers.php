@@ -280,5 +280,10 @@ function csrf()
     return "<input type='hidden' name='_token' value='" . Request::csrf_token() . "'>";
 }
 
+function old($field)
+{
+    return Request::old($field);
+}
+
 // add additional helper functions from the users
 require __DIR__ . '/../config/function.helpers.php';
