@@ -13,11 +13,11 @@ class Request
 	 */
 	public static function uri()
 	{
-		$base_uri = (App::get('base_url') != "/")
+		$base_uri = (App::get('base_url') != "")
 			? str_replace(App::get('base_url'), "", $_SERVER['REQUEST_URI'])
 			: $_SERVER['REQUEST_URI'];
 
-		return trim(parse_url($base_uri, PHP_URL_PATH),  '/');
+		return parse_url($base_uri, PHP_URL_PATH);
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Request
 	 */
 	private static function storeValidatedToSession($validatedRequest)
 	{
-		unset($_SESSION['OLD']);
+		static::invalidateOld();
 		$_SESSION['OLD'] = $validatedRequest;
 	}
 
@@ -101,7 +101,7 @@ class Request
 		$isEmailExist = App::get('database')->select("*", "users", "email = '" . $request['email'] . "'");
 
 		if (!$isEmailExist) {
-			redirect('forgot/password', ['E-mail not found in the server.', 'danger']);
+			redirect('/forgot/password', ['E-mail not found in the server.', 'danger']);
 		} else {
 
 			$token = Request::token(10);
@@ -139,7 +139,7 @@ class Request
 				}
 			}
 
-			redirect('forgot/password', $isSent);
+			redirect('/forgot/password', $isSent);
 		}
 	}
 
@@ -195,5 +195,12 @@ class Request
 	public static function renewCsrfToken()
 	{
 		$_SESSION["csrf_token"] = md5(bin2hex(randChar(20)));
+	}
+
+	public static function invalidateOld()
+	{
+		if (isset($_SESSION['OLD'])) {
+			unset($_SESSION['OLD']);
+		}
 	}
 }

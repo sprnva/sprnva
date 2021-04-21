@@ -16,12 +16,12 @@ class ProfileController
         $user_id = Auth::user('id');
         $user_data = App::get('database')->select("*", 'users', "id='$user_id'");
 
-        return view('auth/profile', compact('user_data', 'pageTitle'));
+        return view('/auth/profile', compact('user_data', 'pageTitle'));
     }
 
     public function update()
     {
-        $request = Request::validate('profile', [
+        $request = Request::validate('/profile', [
             'email' => 'required'
         ]);
 
@@ -33,19 +33,19 @@ class ProfileController
         ];
 
         App::get('database')->update('users', $update_data, "id = '$user_id'");
-        redirect("profile", ["Profile information updated.", 'success']);
+        redirect("/profile", ["Profile information updated.", 'success']);
     }
 
     public function changePass()
     {
-        $request = Request::validate('profile', [
+        $request = Request::validate('/profile', [
             'old-password' => 'required',
             'new-password' => 'required',
             'confirm-password' => 'required'
         ]);
 
         $response_message = Auth::resetPassword($request);
-        redirect("profile", $response_message);
+        redirect("/profile", $response_message);
     }
 
     public function delete()

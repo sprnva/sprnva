@@ -9,11 +9,11 @@ $config = [
     'connection' => '127.0.0.1',
 
     // APP CONFIG
-    'base_url' => 'sprnva/',
+    'base_url' => 'sprnva',
     'app_name' => 'SPRNVA',
 
     // choices: windows, macOS, linux
-    'os' => 'windows',
+    'os' => 'macOS',
 
     // choices: development, production
     'environment' => 'development',

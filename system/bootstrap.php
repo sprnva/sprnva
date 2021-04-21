@@ -22,7 +22,9 @@ App::bind('config', require __DIR__ . '/EnvConfig.php');
 
 App::bind(
     'base_url',
-    "/" . App::get('config')['app']['base_url']
+    (!empty(App::get('config')['app']['base_url']))
+        ? '/' . App::get('config')['app']['base_url']
+        : App::get('config')['app']['base_url']
 );
 
 App::bind('database', new QueryBuilder(

@@ -35,7 +35,7 @@ use App\Core\App;
 
                         <?= msg('RESPONSE_MSG'); ?>
 
-                        <form method="POST" action="<?= route('forgot/password') ?>">
+                        <form method="POST" action="<?= route('/forgot/password') ?>">
                             <?= csrf() ?>
                             <small class="text-muted">Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</small>
                             <div class="form-group mt-3">
@@ -43,7 +43,7 @@ use App\Core\App;
                                 <input type="email" class="form-control" name="email" autocomplete="off" autofocus>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="<?= route('login'); ?>" style="font-size: 18px;">
+                                <a href="<?= route('/login'); ?>" style="font-size: 18px;">
                                     <small class="form-text text-muted mb-1">Back to login?</small>
                                 </a>
                                 <div class="d-flex justify-content-end ml-3"><button type="submit" class="btn btn-secondary btn-sm text-rigth">SEND PASSWORD RESET LINK</button></div>

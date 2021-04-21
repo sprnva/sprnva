@@ -10,6 +10,6 @@ class WelcomeController
     {
         $pageTitle = "Home";
 
-        return view('home', compact('pageTitle'));
+        return view('/home', compact('pageTitle'));
     }
 }

@@ -20,8 +20,6 @@
         Header set Cache-Control "max-age=28800, public"
     </filesMatch>
 
-    RewriteBase /sprnva/
-
     RewriteEngine On
 
     RewriteCond %{REQUEST_FILENAME} !-d

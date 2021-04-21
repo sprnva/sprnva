@@ -67,7 +67,7 @@ function redirect($path, $message = [])
  */
 function public_url($uri = "")
 {
-    return App::get('base_url') . "public" . $uri;
+    return App::get('base_url') . "/public" . $uri;
 }
 
 /**

@@ -31,7 +31,7 @@ use App\Core\Auth;
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 1px solid #eee;">
 		<div class="container">
-			<a class="navbar-brand" href="<?= route('') ?>">
+			<a class="navbar-brand" href="<?= route('/') ?>">
 				<svg height="30pt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 318 305" width="30pt" xmlns="http://www.w3.org/2000/svg">
 					<g transform="matrix(.1 0 0 -.1 0 305)" style="fill:#0a9e6e">
 						<path d="m1480 2939c-560-43-1059-436-1234-972-92-281-92-601 0-884 27-83 112-265 139-298l17-20-8 20c-4 11-9 63-11 115-3 76-9 105-30 147-35 74-31 163 12 225 45 63 104 90 187 86 82-4 139-39 176-108 20-38 23-56 20-112-5-86-40-141-115-178-50-24-50-25-45-65 9-74 54-136 113-158 14-4 17 5 23 55 13 124 104 341 209 498 85 128 137 191 262 319 196 202 405 358 633 474 228 117 398 167 597 176l130 6-43 32c-23 17-64 36-90 43-48 11-49 11-85-24-47-44-94-59-168-54-194 14-261 270-101 383 89 62 231 40 291-46 23-33 34-39 93-53 71-16 176-64 197-90 8-9 18-16 24-16 7 0-22 34-63 76-301 304-705 456-1130 423z" />
@@ -56,7 +56,7 @@ use App\Core\Auth;
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="<?= route('home') ?>">Home</a>
+						<a class="nav-link" href="<?= route('/home') ?>">Home</a>
 					</li>
 				</ul>
 
@@ -66,11 +66,11 @@ use App\Core\Auth;
 							<?= Auth::user('fullname') ?>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="<?= route('profile') ?>">Profile</a>
+							<a class="dropdown-item" href="<?= route('/profile') ?>">Profile</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="<?= route('logout') ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+							<a class="dropdown-item" href="<?= route('/logout') ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
 
-							<form id="logout-form" action="<?= route('logout') ?>" method="POST" style="display:none;">
+							<form id="logout-form" action="<?= route('/logout') ?>" method="POST" style="display:none;">
 								<?= csrf() ?>
 							</form>
 						</div>

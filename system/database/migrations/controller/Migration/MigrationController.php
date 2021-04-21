@@ -13,7 +13,7 @@ class MigrationController
 	public function index()
 	{
 		if (App::get('config')['app']['environment'] != "development") {
-			redirect('home');
+			redirect('/home');
 		}
 
 		$pageTitle = "Migration";
@@ -24,10 +24,10 @@ class MigrationController
 	public function run()
 	{
 		if (App::get('config')['app']['environment'] != "development") {
-			redirect('home');
+			redirect('/home');
 		}
 
-		$request = Request::validate('migration');
+		$request = Request::validate('/migration');
 
 		$migration = new Migration();
 		$commandType = $request["command"];

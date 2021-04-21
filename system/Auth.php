@@ -11,7 +11,7 @@ class Auth
     public static function isAuthenticated()
     {
         if (!empty(static::user('id'))) {
-            redirect('home');
+            redirect('/home');
         }
     }
 
@@ -25,7 +25,7 @@ class Auth
         $datas = App::get('database')->select("*", "users", "username = '$request[username]' AND password = md5('$request[password]')");
 
         if (!$datas) {
-            redirect('login', ["User not found.", 'danger']);
+            redirect('/login', ["User not found.", 'danger']);
         }
 
         $users = [];
@@ -36,7 +36,7 @@ class Auth
         $_SESSION["AUTH"] = $users;
         Request::renewCsrfToken();
 
-        redirect('home');
+        redirect('/home');
     }
 
     /**
@@ -58,7 +58,7 @@ class Auth
         if (!empty($middleware)) {
             if ($middleware == 'auth') {
                 if (empty(static::user('id'))) {
-                    redirect('login');
+                    redirect('/login');
                 }
             }
         }
@@ -73,10 +73,10 @@ class Auth
         if (!empty($request)) {
             Request::verifyCsrfToken($request['_token']);
             static::sessionInvalidate();
-            redirect('login');
+            redirect('/login');
         } else {
             static::sessionInvalidate();
-            redirect('login');
+            redirect('/login');
         }
     }
 
@@ -129,12 +129,12 @@ class Auth
 
                 App::get('database')->delete("password_resets", "email = '$isTokenLegit[email]' AND token = '$request[token]'");
 
-                redirect('login', ["Success reset password", "success"]);
+                redirect('/login', ["Success reset password", "success"]);
             } else {
-                redirect('reset/password/' . $request['token'], ["Passwords must match.", "danger"]);
+                redirect('/reset/password/' . $request['token'], ["Passwords must match.", "danger"]);
             }
         } else {
-            redirect('reset/password/' . $request['token'], ["Token is not authorized.", "danger"]);
+            redirect('/reset/password/' . $request['token'], ["Token is not authorized.", "danger"]);
         }
     }
 
@@ -146,7 +146,7 @@ class Auth
     public static function userIsAuthorized()
     {
         if (static::user('role_id') != 1) {
-            redirect('home');
+            redirect('/home');
         }
     }
 

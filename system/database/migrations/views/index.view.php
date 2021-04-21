@@ -103,7 +103,7 @@ use App\Core\App;
 					$("#outputContent").html("Migration name is empty.");
 					$(".btcmd").prop("disabled", false);
 				} else {
-					$.post("migrate-run", {
+					$.post("/migrate-run", {
 						command: command,
 						migrationName: migrationName
 					}, function(data) {

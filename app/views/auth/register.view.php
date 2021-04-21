@@ -38,7 +38,7 @@ use App\Core\App;
 
                         <?= msg('RESPONSE_MSG'); ?>
 
-                        <form method="POST" action="<?= route('register') ?>">
+                        <form method="POST" action="<?= route('/register') ?>">
                             <?= csrf() ?>
                             <div class="form-group">
                                 <label for="email">E-mail</label>
@@ -58,7 +58,7 @@ use App\Core\App;
                             </div>
 
                             <div class="d-flex justify-content-end">
-                                <a href="<?= route('login'); ?>" style="font-size: 18px;">
+                                <a href="<?= route('/login'); ?>" style="font-size: 18px;">
                                     <small id="emailHelp" class="form-text text-muted mb-1">Already registered?</small>
                                 </a>
                                 <button type="submit" class="btn btn-secondary btn-sm text-rigth ml-2">REGISTER</button>
