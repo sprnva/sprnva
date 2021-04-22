@@ -149,10 +149,10 @@ class Request
 	 */
 	public static function csrf_token()
 	{
-		if (!isset($_SESSION["csrf_token"])) {
-			$_SESSION["csrf_token"] = md5(bin2hex(randChar(20)));
+		if (!isset($_SESSION["_sprnva_csrf_token"])) {
+			$_SESSION["_sprnva_csrf_token"] = md5(bin2hex(randChar(20)));
 		} else {
-			$token = $_SESSION["csrf_token"];
+			$token = $_SESSION["_sprnva_csrf_token"];
 		}
 
 		return $token;
@@ -175,10 +175,10 @@ class Request
 	 */
 	public static function tokensMatch($request)
 	{
-		if (strlen($_SESSION["csrf_token"]) != strlen($request)) {
+		if (strlen($_SESSION["_sprnva_csrf_token"]) != strlen($request)) {
 			return false;
 		} else {
-			$res = $_SESSION["csrf_token"] ^ $request;
+			$res = $_SESSION["_sprnva_csrf_token"] ^ $request;
 			$ret = 0;
 			for ($i = strlen($res) - 1; $i >= 0; $i--) {
 				$ret |= ord($res[$i]);
@@ -194,7 +194,7 @@ class Request
 	 */
 	public static function renewCsrfToken()
 	{
-		$_SESSION["csrf_token"] = md5(bin2hex(randChar(20)));
+		$_SESSION["_sprnva_csrf_token"] = md5(bin2hex(randChar(20)));
 	}
 
 	public static function invalidateOld()
