@@ -42,15 +42,15 @@ use App\Core\App;
                             <?= csrf() ?>
                             <div class="form-group">
                                 <label for="email">E-mail</label>
-                                <input type="email" class="form-control" name="email" autocomplete="off" autofocus>
+                                <input type="email" class="form-control" name="email" autocomplete="off" value="<?= old('email') ?>" autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" name="name" autocomplete="off">
+                                <input type="text" class="form-control" name="name" value="<?= old('name') ?>" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" name="username" autocomplete="off">
+                                <input type="text" class="form-control" name="username" value="<?= old('username') ?>" autocomplete="off">
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
