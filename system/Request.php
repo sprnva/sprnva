@@ -32,18 +32,61 @@ class Request
 
 	/**
 	 * Validates the POST method inputs
+	 * check if the input has validation set.
+	 * 
+	 */
+	public static function validator($datas = [])
+	{
+		$errorList = [];
+		foreach ($datas as $key => $data) {
+			foreach ($data as $types) {
+				$type = explode(':', $types);
+
+				switch ($type[0]) {
+					case 'required':
+						if (empty($_REQUEST[$key])) {
+							$errorList[] = "&bull; {$key} is {$type[0]} but has no value.";
+						}
+
+						break;
+
+					case 'min':
+						if (strlen($_REQUEST[$key]) < $type[1]) {
+							$errorList[] = "&bull; {$key} is less than {$type[1]} character/s.";
+						}
+
+						break;
+
+					case 'max':
+						if (strlen($_REQUEST[$key]) > $type[1]) {
+							$errorList[] = "&bull; {$key} is greater than {$type[1]} character/s.";
+						}
+
+						break;
+
+					case 'email':
+						if (!strpos('@', $_REQUEST[$key])) {
+							$errorList[] = "&bull; {$key} is not a valid email address.";
+						}
+
+						break;
+
+					default:
+						break;
+				}
+			}
+		}
+
+		return $errorList;
+	}
+
+	/**
+	 * Validates the POST method inputs
 	 * 
 	 */
 	public static function validate($uri = '', $datas = [])
 	{
-
-		foreach ($datas as $key => $data) {
-			if ($data == "required") {
-				if (empty($_REQUEST[$key])) {
-					$errorList[] = "&bull; {$key} is {$data} but has no value.";
-				}
-			}
-		}
+		$errorList = static::validator($datas);
 
 		foreach ($_REQUEST as $key => $value) {
 			$post_data[$key] = sanitizeString($value);

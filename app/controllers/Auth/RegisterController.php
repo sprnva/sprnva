@@ -21,9 +21,9 @@ class RegisterController
     public function store()
     {
         $request = Request::validate('/register', [
-            'email' => 'required',
-            'username' => 'required',
-            'password' => 'required',
+            'email' => ['required', 'email'],
+            'username' => ['required'],
+            'password' => ['required'],
         ]);
 
         $register_user = [
