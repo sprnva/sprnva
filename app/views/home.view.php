@@ -30,4 +30,16 @@ require 'layouts/head.php'; ?>
     <p>SPRNVA is a PHP template that brightens your horizon in future engagement for massive frameworks.</p>
 </div>
 
+
+
+<div class="form-group">
+    <label for="password">avatar</label>
+    <input type="file" id="avatar" name="avatar">
+</div>
+
+<script>
+    FilePond.setOptions({
+        server: base_url + '/file/upload'
+    });
+</script>
 <?php require 'layouts/footer.php'; ?>

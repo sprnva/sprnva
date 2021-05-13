@@ -15,6 +15,7 @@ use App\Core\Auth;
 	</title>
 
 	<link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/bootstrap.min.css') ?>">
+	<link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/filepond.css') ?>">
 
 	<style>
 		body {
@@ -26,6 +27,12 @@ use App\Core\Auth;
 	<script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
 	<script src="<?= public_url('/assets/sprnva/js/popper.min.js') ?>"></script>
 	<script src="<?= public_url('/assets/sprnva/js/bootstrap.min.js') ?>"></script>
+	<script src="<?= public_url('/assets/sprnva/js/filepond.js') ?>"></script>
+
+	<script>
+		const base_url = "<?= App::get('base_url') ?>";
+	</script>
+</head>
 </head>
 
 <body>

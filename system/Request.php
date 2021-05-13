@@ -246,4 +246,19 @@ class Request
 			unset($_SESSION['OLD']);
 		}
 	}
+
+	/**
+	 * Determine if the uploaded data contains a file.
+	 *
+	 * @param  string  $key
+	 * @return bool
+	 */
+	public static function hasFile($key)
+	{
+		if ($_FILES[$key]['size'] == 0 && $_FILES[$key]['error'] == 0) {
+			return false;
+		}
+
+		return true;
+	}
 }
