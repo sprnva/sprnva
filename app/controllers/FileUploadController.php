@@ -10,12 +10,17 @@ class FileUploadController
 {
     public function store()
     {
-        // // $request = Request::validate('/');
-        // if (Request::hasFile('avatar')) {
-        //     die(var_dump(["has a file"]));
-        // }
+        if (Request::hasFile('avatar')) {
+            $file_tmp = $_FILES['avatar']['tmp_name'];
+            $filename = $_FILES['avatar']['name'];
+            $folder = randChar(4) . '-' . date('Ymdhis');
+            $temp_dir = "public/assets/uploads/tmp/";
 
-        // die(var_dump(Request::hasFile('avatar')));
-        redirect('/profile')
+            Request::storeAs($file_tmp, $temp_dir, $_FILES['avatar']['type'], $folder, $filename);
+
+            echo $folder;
+        }
+
+        echo '';
     }
 }

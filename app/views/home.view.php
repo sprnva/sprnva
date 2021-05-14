@@ -1,6 +1,7 @@
 <?php
 
 use App\Core\Auth;
+use App\Core\Request;
 
 require 'layouts/head.php'; ?>
 
@@ -32,14 +33,20 @@ require 'layouts/head.php'; ?>
 
 
 
-<div class="form-group">
+<div class="form-group d-flex flex-column" style="position: relative;max-width: 30rem;padding-bottom: 30%;">
     <label for="password">avatar</label>
-    <input type="file" id="avatar" name="avatar">
+    <input type="file" id="avatar" name="avatar" multiple ata-max-files="10">
 </div>
+
 
 <script>
     FilePond.setOptions({
-        server: base_url + '/file/upload'
+        server: {
+            url: base_url + '/file/upload',
+            headers: {
+                'X-CSRF-TOKEN': '<?= Request::csrf_token() ?>'
+            }
+        }
     });
 </script>
 <?php require 'layouts/footer.php'; ?>

@@ -261,4 +261,34 @@ class Request
 
 		return true;
 	}
+
+	/**
+	 * Write the contents of a file.
+	 *
+	 * @param  string  $path
+	 * @param  string  $contents
+	 * @param  bool  $lock
+	 * @return int|bool
+	 */
+	public static function storeAs($file_tmp, $temp_dir, $type, $folder, $filename)
+	{
+		$data = file_get_contents($file_tmp);
+		$imagedata = 'data:' . $type . ';base64,' . base64_encode($data);
+
+		$tmp_folder = $temp_dir;
+
+		if (!is_dir($tmp_folder . $folder)) {
+			mkdir($tmp_folder . $folder);
+			chmod($tmp_folder . $folder, 0777);
+		}
+
+		$path = $tmp_folder . $folder . '/' . $filename;
+
+		list($type, $imagedata) = explode(';', $imagedata);
+		list(, $imagedata) = explode(',', $imagedata);
+
+		$imagedata = base64_decode($imagedata);
+
+		file_put_contents($path, $imagedata);
+	}
 }
