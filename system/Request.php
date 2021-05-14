@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Core\App;
 
+
 class Request
 {
 	/**
@@ -88,6 +89,8 @@ class Request
 	{
 		$errorList = static::validator($datas);
 
+		// die(var_dump($_REQUEST));
+
 		foreach ($_REQUEST as $key => $value) {
 			$post_data[$key] = sanitizeString($value);
 		}
@@ -99,6 +102,10 @@ class Request
 		}
 
 		if (isset($_REQUEST['_token'])) {
+			static::verifyCsrfToken($_REQUEST['_token']);
+		}
+
+		if (!empty($_SERVER['HTTP_X_CSRF_TOKEN'])) {
 			static::verifyCsrfToken($_REQUEST['_token']);
 		}
 
@@ -272,15 +279,15 @@ class Request
 	 */
 	public static function storeAs($file_tmp, $temp_dir, $type, $folder, $filename)
 	{
-		$data = file_get_contents($file_tmp);
+		Filesystem::noMemoryLimit();
+
+		$data = Filesystem::get($file_tmp);
 		$imagedata = 'data:' . $type . ';base64,' . base64_encode($data);
 
 		$tmp_folder = $temp_dir;
 
-		if (!is_dir($tmp_folder . $folder)) {
-			mkdir($tmp_folder . $folder);
-			chmod($tmp_folder . $folder, 0777);
-		}
+		static::ensureUploadsAndTmpFolderExist();
+		Filesystem::makeDirectory($tmp_folder . $folder);
 
 		$path = $tmp_folder . $folder . '/' . $filename;
 
@@ -289,6 +296,15 @@ class Request
 
 		$imagedata = base64_decode($imagedata);
 
-		file_put_contents($path, $imagedata);
+		Filesystem::put($path, $imagedata);
+	}
+
+	public static function ensureUploadsAndTmpFolderExist()
+	{
+		// ensure uploads directory exist
+		Filesystem::makeDirectory("public/assets/uploads");
+
+		// ensure tmp directory exist
+		Filesystem::makeDirectory("public/assets/uploads/tmp");
 	}
 }

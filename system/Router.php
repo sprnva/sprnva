@@ -13,7 +13,8 @@ class Router
 	 */
 	public $routes = [
 		'GET' => [],
-		'POST' => []
+		'POST' => [],
+		'DELETE' => []
 	];
 
 	/**
@@ -49,6 +50,17 @@ class Router
 	public function post($uri, $controller)
 	{
 		$this->routes['POST'][$uri] = $controller;
+	}
+
+	/**
+	 * Register a POST route.
+	 *
+	 * @param string $uri
+	 * @param string $controller
+	 */
+	public function delete($uri, $controller)
+	{
+		$this->routes['DELETE'][$uri] = $controller;
 	}
 
 	/**
