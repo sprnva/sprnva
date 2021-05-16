@@ -35,7 +35,7 @@ require 'layouts/head.php'; ?>
 
 <div class="form-group d-flex flex-column" style="position: relative;max-width: 30rem;padding-bottom: 30%;">
     <label for="password">avatar</label>
-    <input type="file" id="avatar" name="avatar" multiple ata-max-files="10">
+    <input type="file" id="avatar" name="avatar" multiple data-max-files="10" data-allow-reorder="true">
 </div>
 
 
@@ -48,5 +48,7 @@ require 'layouts/head.php'; ?>
             }
         }
     });
+
+    FilePond.create(document.querySelector('input[type="file"]'));
 </script>
 <?php require 'layouts/footer.php'; ?>

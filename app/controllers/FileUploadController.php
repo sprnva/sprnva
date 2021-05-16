@@ -11,7 +11,6 @@ class FileUploadController
 {
     public function store()
     {
-        // $request = Request::validate('/');
         if (Request::hasFile('avatar')) {
             $file_tmp = $_FILES['avatar']['tmp_name'];
             $filename = $_FILES['avatar']['name'];

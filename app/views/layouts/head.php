@@ -15,8 +15,6 @@ use App\Core\Auth;
 	</title>
 
 	<link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/bootstrap.min.css') ?>">
-	<link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/filepond-plugin-image-preview.min.css') ?>">
-	<link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/filepond.css') ?>">
 
 	<style>
 		body {
@@ -28,11 +26,8 @@ use App\Core\Auth;
 	<script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
 	<script src="<?= public_url('/assets/sprnva/js/popper.min.js') ?>"></script>
 	<script src="<?= public_url('/assets/sprnva/js/bootstrap.min.js') ?>"></script>
-	<script src="<?= public_url('/assets/sprnva/js/filepond-plugin-file-encode.min.js') ?>"></script>
-	<script src="<?= public_url('/assets/sprnva/js/filepond-plugin-file-validate-size.min.js') ?>"></script>
-	<script src="<?= public_url('/assets/sprnva/js/filepond-plugin-image-exif-orientation.min.js') ?>"></script>
-	<script src="<?= public_url('/assets/sprnva/js/filepond-plugin-image-preview.min.js') ?>"></script>
-	<script src="<?= public_url('/assets/sprnva/js/filepond.js') ?>"></script>
+
+	<?php require_once __DIR__ . '/filepond.php'; ?>
 
 	<script>
 		const base_url = "<?= App::get('base_url') ?>";
