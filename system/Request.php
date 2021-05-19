@@ -66,7 +66,7 @@ class Request
 						break;
 
 					case 'email':
-						if (!strpos('@', $_REQUEST[$key])) {
+						if (strpos('@', $_REQUEST[$key]) !== false) {
 							$errorList[] = "&bull; {$key} is not a valid email address.";
 						}
 

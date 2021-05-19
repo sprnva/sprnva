@@ -35,7 +35,7 @@ require 'layouts/head.php'; ?>
 
 <div class="form-group d-flex flex-column" style="position: relative;max-width: 30rem;padding-bottom: 30%;">
     <label for="password">avatar</label>
-    <input type="file" id="avatar" name="avatar" multiple data-max-files="10" data-allow-reorder="true">
+    <input type="file" id="avatar" name="avatar" multiple data-max-files="10">
 </div>
 
 
@@ -48,6 +48,13 @@ require 'layouts/head.php'; ?>
             }
         }
     });
+
+    FilePond.registerPlugin(
+        FilePondPluginFileEncode,
+        FilePondPluginFileValidateSize,
+        FilePondPluginImageExifOrientation,
+        FilePondPluginImagePreview
+    );
 
     FilePond.create(document.querySelector('input[type="file"]'));
 </script>
