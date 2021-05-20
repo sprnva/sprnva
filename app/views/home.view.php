@@ -1,6 +1,7 @@
 <?php
 
 use App\Core\Auth;
+use App\Core\Request;
 
 require 'layouts/head.php'; ?>
 

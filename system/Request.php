@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Core\App;
 
+
 class Request
 {
 	/**
@@ -88,6 +89,8 @@ class Request
 	{
 		$errorList = static::validator($datas);
 
+		// die(var_dump($_REQUEST));
+
 		foreach ($_REQUEST as $key => $value) {
 			$post_data[$key] = sanitizeString($value);
 		}
@@ -99,6 +102,10 @@ class Request
 		}
 
 		if (isset($_REQUEST['_token'])) {
+			static::verifyCsrfToken($_REQUEST['_token']);
+		}
+
+		if (!empty($_SERVER['HTTP_X_CSRF_TOKEN'])) {
 			static::verifyCsrfToken($_REQUEST['_token']);
 		}
 
@@ -245,5 +252,59 @@ class Request
 		if (isset($_SESSION['OLD'])) {
 			unset($_SESSION['OLD']);
 		}
+	}
+
+	/**
+	 * Determine if the uploaded data contains a file.
+	 *
+	 * @param  string  $key
+	 * @return bool
+	 */
+	public static function hasFile($key)
+	{
+		if ($_FILES[$key]['size'] == 0 && $_FILES[$key]['error'] == 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Write the contents of a file.
+	 *
+	 * @param  string  $path
+	 * @param  string  $contents
+	 * @param  bool  $lock
+	 * @return int|bool
+	 */
+	public static function storeAs($file_tmp, $temp_dir, $type, $folder, $filename)
+	{
+		Filesystem::noMemoryLimit();
+
+		$data = Filesystem::get($file_tmp);
+		$imagedata = 'data:' . $type . ';base64,' . base64_encode($data);
+
+		$tmp_folder = $temp_dir;
+
+		static::ensureUploadsAndTmpFolderExist();
+		Filesystem::makeDirectory($tmp_folder . $folder);
+
+		$path = $tmp_folder . $folder . '/' . $filename;
+
+		list($type, $imagedata) = explode(';', $imagedata);
+		list(, $imagedata) = explode(',', $imagedata);
+
+		$imagedata = base64_decode($imagedata);
+
+		Filesystem::put($path, $imagedata);
+	}
+
+	public static function ensureUploadsAndTmpFolderExist()
+	{
+		// ensure uploads directory exist
+		Filesystem::makeDirectory("public/assets/uploads");
+
+		// ensure tmp directory exist
+		Filesystem::makeDirectory("public/assets/uploads/tmp");
 	}
 }
