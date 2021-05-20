@@ -31,31 +31,4 @@ require 'layouts/head.php'; ?>
     <p>SPRNVA is a PHP template that brightens your horizon in future engagement for massive frameworks.</p>
 </div>
 
-
-
-<div class="form-group d-flex flex-column" style="position: relative;max-width: 30rem;padding-bottom: 30%;">
-    <label for="password">avatar</label>
-    <input type="file" id="avatar" name="avatar" multiple data-max-files="10">
-</div>
-
-
-<script>
-    FilePond.setOptions({
-        server: {
-            url: base_url + '/file/upload',
-            headers: {
-                'X-CSRF-TOKEN': '<?= Request::csrf_token() ?>'
-            }
-        }
-    });
-
-    FilePond.registerPlugin(
-        FilePondPluginFileEncode,
-        FilePondPluginFileValidateSize,
-        FilePondPluginImageExifOrientation,
-        FilePondPluginImagePreview
-    );
-
-    FilePond.create(document.querySelector('input[type="file"]'));
-</script>
 <?php require 'layouts/footer.php'; ?>
