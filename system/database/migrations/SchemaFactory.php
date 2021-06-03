@@ -9,31 +9,7 @@ class SchemaFactory
 	public function __construct($schemaName = '', $schemaPath = '', $migration_table = '')
 	{
 		$this->schemaFilePath = $schemaPath . $schemaName;
-
-		switch (App::get('config')['app']['os']) {
-			case 'windows':
-				$this->mysqlPath = "C:\\xampp\\mysql\\bin\\";
-				break;
-
-			case 'macOS':
-				$this->mysqlPath = "/Applications/XAMPP/xamppfiles/bin/";
-				break;
-
-			case 'linux':
-				$this->mysqlPath = "/usr/bin/";
-				break;
-
-			default:
-				$this->mysqlPath = "";
-				break;
-		}
-
-		// !! F A I L S A F E !!
-		// This collection is to prevent unwanted 
-		// changes against the database of the host specified
-		// please be careful removing host, 
-		// this may damage/drop/change the database
-		$this->notAllowedHost = [];
+		$this->mysqlPath = App::get('config')['app']['mysql_path'];
 
 		// database engine
 		$this->engine = "InnoDB";
