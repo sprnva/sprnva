@@ -1,19 +1,32 @@
 <?php
 
 // authentication
-$router->get('/login', ['AuthController@index']);
-$router->post('/login', ['AuthController@authenticate']);
+
 $router->post('/logout', ['AuthController@logout']);
 
-$router->get("/register", ['RegisterController@index']);
-$router->post("/register", ['RegisterController@store']);
+$router->group(['prefix' => 'login'], function ($router) {
+    $router->get('/', ['AuthController@index']);
+    $router->post('/', ['AuthController@authenticate']);
+});
 
-$router->get("/profile", ['ProfileController@index', 'auth']);
-$router->post('/profile', ['ProfileController@update', 'auth']);
-$router->post('/profile/changepass', ['ProfileController@changePass', 'auth']);
-$router->post('/profile/delete', ['ProfileController@delete', 'auth']);
+$router->group(['prefix' => 'register'], function ($router) {
+    $router->get("/", ['RegisterController@index']);
+    $router->post("/", ['RegisterController@store']);
+});
 
-$router->get("/forgot/password", ['AuthController@forgotPassword']);
-$router->post("/forgot/password", ['AuthController@sendResetLink']);
-$router->get("/reset/password/{id}", ['AuthController@resetPassword']);
-$router->post("/reset/password", ['AuthController@passwordStore']);
+$router->group(['prefix' => 'profile', 'middleware' => ['auth']], function ($router) {
+    $router->get("/", ['ProfileController@index', 'auth']);
+    $router->post('/', ['ProfileController@update', 'auth']);
+    $router->post('/changepass', ['ProfileController@changePass', 'auth']);
+    $router->post('/delete', ['ProfileController@delete', 'auth']);
+});
+
+$router->group(['prefix' => 'forgot/password'], function ($router) {
+    $router->get("/", ['AuthController@forgotPassword']);
+    $router->post("/", ['AuthController@sendResetLink']);
+});
+
+$router->group(['prefix' => 'reset/password'], function ($router) {
+    $router->get("/{id}", ['AuthController@resetPassword']);
+    $router->post("/", ['AuthController@passwordStore']);
+});

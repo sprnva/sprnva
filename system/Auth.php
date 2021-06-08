@@ -56,7 +56,7 @@ class Auth
     public static function routeGuardian($middleware)
     {
         if (!empty($middleware)) {
-            if ($middleware == 'auth') {
+            if (in_array('auth', $middleware)) {
                 if (empty(static::user('id'))) {
                     redirect('/login');
                 }
