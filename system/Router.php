@@ -151,6 +151,7 @@ class Router
 		if (array_key_exists($uri, $this->routes[$requestType])) {
 			if (is_callable($this->routes[$requestType][$uri][1])) {
 				call_user_func($this->routes[$requestType][$uri][1]);
+				die();
 			} else {
 				Auth::routeGuardian([$this->routes[$requestType][$uri][1][1]]);
 
@@ -168,6 +169,7 @@ class Router
 					if (is_callable($val[1])) {
 						$param_array = array_filter($matches, 'is_int', ARRAY_FILTER_USE_KEY);
 						call_user_func_array($val[1], $param_array);
+						die();
 					} else {
 						Auth::routeGuardian([$val[1][1]]);
 
