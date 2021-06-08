@@ -30,7 +30,9 @@ class Auth
 
         $users = [];
         foreach ($datas as $key => $data) {
-            $users[$key] = $data;
+            if ($key != 'password') {
+                $users[$key] = $data;
+            }
         }
 
         $_SESSION["AUTH"] = $users;

@@ -93,9 +93,13 @@ class Request
 
 		foreach ($_REQUEST as $key => $value) {
 			$post_data[$key] = sanitizeString($value);
+
+			if ($key != 'password') {
+				$setOldInput[$key] = sanitizeString($value);
+			}
 		}
 
-		static::storeValidatedToSession($post_data);
+		static::storeValidatedToSession($setOldInput);
 
 		if (!empty($errorList)) {
 			redirect($uri, [implode('<br>', $errorList), "danger"]);
