@@ -141,6 +141,8 @@ class Router
 	 */
 	protected function callAction($controller, $action, $paramerters = [])
 	{
+		$param_array = array_filter($paramerters, 'is_int', ARRAY_FILTER_USE_KEY);
+
 		if (class_exists($controller)) {
 			throwException("Controller [{$controller}] already exist.", new Exception());
 		}
@@ -153,6 +155,6 @@ class Router
 			throwException("{$controller} does not respond to the [{$action}] action.", new Exception());
 		}
 
-		return $controllerClass->$action($paramerters[0]);
+		return call_user_func_array([$controllerClass, $action], $param_array);
 	}
 }
