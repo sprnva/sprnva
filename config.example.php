@@ -13,7 +13,7 @@ $config = [
     'app_name' => 'SPRNVA',
 
     // for more flexible database migration please indicate 
-    // the path of mysql in your machine including the trailing backslash.
+    // the path of mysql in your machine including the trailing slashes.
     'mysql_path' => '',
 
     // choices: development, production
