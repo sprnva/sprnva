@@ -20,6 +20,9 @@ class Router
 		'OPTIONS' => []
 	];
 
+	protected $currentGroupPrefix = '';
+	protected $currentGroupMiddleware = [];
+
 	/**
 	 * Load a user's routes file.
 	 *
@@ -34,69 +37,105 @@ class Router
 	}
 
 	/**
+	 * Register a method specified.
+	 *
+	 * @param string $uri
+	 * @param mixed $callback
+	 */
+	public function match($method, $uri, $callback)
+	{
+		if ($this->currentGroupPrefix == "") {
+			$_uri = $uri;
+		} else {
+			if ($uri == '/') {
+				$_uri = "/" . $this->currentGroupPrefix;
+			} else {
+				$_uri = "/" . $this->currentGroupPrefix . $uri;
+			}
+		}
+
+		$this->routes[$method][$_uri] = [$this->currentGroupMiddleware, $callback];
+	}
+
+	/**
 	 * Register a GET route.
 	 *
 	 * @param string $uri
-	 * @param string $controller
+	 * @param mixed $callback
 	 */
-	public function get($uri, $controller)
+	public function get($uri, $callback)
 	{
-		$this->routes['GET'][$uri] = $controller;
+		$this->match('GET', $uri, $callback);
 	}
 
 	/**
 	 * Register a POST route.
 	 *
 	 * @param string $uri
-	 * @param string $controller
+	 * @param mixed $callback
 	 */
-	public function post($uri, $controller)
+	public function post($uri, $callback)
 	{
-		$this->routes['POST'][$uri] = $controller;
+		$this->match('POST', $uri, $callback);
 	}
 
 	/**
 	 * Register a DELETE route.
 	 *
 	 * @param string $uri
-	 * @param string $controller
+	 * @param mixed $callback
 	 */
-	public function delete($uri, $controller)
+	public function delete($uri, $callback)
 	{
-		$this->routes['DELETE'][$uri] = $controller;
+		$this->match('DELETE', $uri, $callback);
 	}
 
 	/**
 	 * Register a PUT route.
 	 *
 	 * @param string $uri
-	 * @param string $controller
+	 * @param mixed $callback
 	 */
-	public function put($uri, $controller)
+	public function put($uri, $callback)
 	{
-		$this->routes['PUT'][$uri] = $controller;
+		$this->match('PUT', $uri, $callback);
 	}
 
 	/**
 	 * Register a PATCH route.
 	 *
 	 * @param string $uri
-	 * @param string $controller
+	 * @param mixed $callback
 	 */
-	public function patch($uri, $controller)
+	public function patch($uri, $callback)
 	{
-		$this->routes['PATCH'][$uri] = $controller;
+		$this->match('PATCH', $uri, $callback);
 	}
 
 	/**
 	 * Register a OPTIONS route.
 	 *
 	 * @param string $uri
-	 * @param string $controller
+	 * @param mixed $callback
 	 */
-	public function options($uri, $controller)
+	public function options($uri, $callback)
 	{
-		$this->routes['OPTIONS'][$uri] = $controller;
+		$this->match('OPTIONS', $uri, $callback);
+	}
+
+	/**
+	 * Register a route group
+	 *
+	 * @param array $prefix
+	 * @param mixed $callback
+	 */
+	public function group($param, $callback)
+	{
+		$previousGroupPrefix = $this->currentGroupPrefix;
+		$this->currentGroupPrefix = $previousGroupPrefix . $param['prefix'];
+		$this->currentGroupMiddleware = $param['middleware'];
+		$callback($this);
+		$this->currentGroupPrefix = $previousGroupPrefix;
 	}
 
 	/**
@@ -107,12 +146,18 @@ class Router
 	 */
 	public function direct($uri, $requestType)
 	{
+		Auth::routeGuardian($this->routes[$requestType][$uri][0]);
+
 		if (array_key_exists($uri, $this->routes[$requestType])) {
+			if (is_callable($this->routes[$requestType][$uri][1])) {
+				call_user_func($this->routes[$requestType][$uri][1]);
+				die();
+			} else {
+				Auth::routeGuardian([$this->routes[$requestType][$uri][1][1]]);
 
-			Auth::routeGuardian($this->routes[$requestType][$uri][1]);
-
-			$splat  = explode('@', $this->routes[$requestType][$uri][0]);
-			return $this->callAction($splat[0], $splat[1]);
+				$splat  = explode('@', $this->routes[$requestType][$uri][1][0]);
+				return $this->callAction($splat[0], $splat[1]);
+			}
 		} else {
 			foreach ($this->routes[$requestType] as $key => $val) {
 				$pattern = preg_replace('#\(/\)#', '/?', $key);
@@ -121,11 +166,16 @@ class Router
 				array_shift($matches);
 
 				if ($matches) {
+					if (is_callable($val[1])) {
+						$param_array = array_filter($matches, 'is_int', ARRAY_FILTER_USE_KEY);
+						call_user_func_array($val[1], $param_array);
+						die();
+					} else {
+						Auth::routeGuardian([$val[1][1]]);
 
-					Auth::routeGuardian($val[1]);
-
-					$getAction = explode('@', $val[0]);
-					return $this->callAction($getAction[0], $getAction[1], $matches);
+						$getAction = explode('@', $val[1][0]);
+						return $this->callAction($getAction[0], $getAction[1], $matches);
+					}
 				}
 			}
 		}
@@ -141,6 +191,8 @@ class Router
 	 */
 	protected function callAction($controller, $action, $paramerters = [])
 	{
+		$param_array = array_filter($paramerters, 'is_int', ARRAY_FILTER_USE_KEY);
+
 		if (class_exists($controller)) {
 			throwException("Controller [{$controller}] already exist.", new Exception());
 		}
@@ -153,6 +205,6 @@ class Router
 			throwException("{$controller} does not respond to the [{$action}] action.", new Exception());
 		}
 
-		return $controllerClass->$action($paramerters[0]);
+		return call_user_func_array([$controllerClass, $action], $param_array);
 	}
 }

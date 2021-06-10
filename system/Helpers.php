@@ -285,5 +285,16 @@ function old($field)
     return Request::old($field);
 }
 
+if (!function_exists('dd')) {
+    function dd()
+    {
+        foreach (func_get_args() as $x) {
+            // var_dump($x);
+            print("<pre style='background-color: #000;color: #4caf50;padding: 10px;overflow-y: auto;word-break: break-all;'>" . print_r($x, true) . "</pre>");
+        }
+        die;
+    }
+}
+
 // add additional helper functions from the users
 require __DIR__ . '/../config/function.helpers.php';
