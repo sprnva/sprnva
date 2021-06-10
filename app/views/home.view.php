@@ -5,7 +5,7 @@ use App\Core\Request;
 
 require 'layouts/head.php'; ?>
 
-<div class="jumbotron pt-4" style="background-color: #f8f9fa;box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
+<div class="jumbotron pt-4" style="background-color: #fff;box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
     <div class="d-flex flex-row align-items-center">
         <svg height="40pt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 318 305" width="40pt" xmlns="http://www.w3.org/2000/svg">
             <g transform="matrix(.1 0 0 -.1 0 305)" style="fill:#0a9e6e">

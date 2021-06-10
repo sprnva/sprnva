@@ -21,6 +21,10 @@ use App\Core\Auth;
 			background-color: #eef1f4;
 			font-weight: 350;
 		}
+
+		.bg-light {
+			background-color: #ffffff !important;
+		}
 	</style>
 
 	<script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
