@@ -27,7 +27,12 @@ use App\Core\Auth;
 	<script src="<?= public_url('/assets/sprnva/js/popper.min.js') ?>"></script>
 	<script src="<?= public_url('/assets/sprnva/js/bootstrap.min.js') ?>"></script>
 
-	<?php require_once __DIR__ . '/filepond.php'; ?>
+	<?php
+	// this will auto include filepond css/js when adding filepond in public/assets
+	if (file_exists('public/assets/filepond')) {
+		require_once 'public/assets/filepond/filepond.php';
+	}
+	?>
 
 	<script>
 		const base_url = "<?= App::get('base_url') ?>";
