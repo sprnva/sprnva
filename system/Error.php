@@ -23,18 +23,12 @@
             margin-top: 0;
             margin-bottom: 0;
             color: #4e7d50;
-            margin-top: 10%;
         }
 
         .wrap {
-            max-width: 1024px;
-            margin: 5rem auto;
-            padding: 2rem;
+            margin-top: 20%;
             background: #fff;
             text-align: center;
-            border: 1px solid #efefef;
-            border-radius: 0.5rem;
-            position: relative;
         }
 
         p {

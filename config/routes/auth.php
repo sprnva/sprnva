@@ -15,10 +15,10 @@ $router->group(['prefix' => 'register'], function ($router) {
 });
 
 $router->group(['prefix' => 'profile', 'middleware' => ['auth']], function ($router) {
-    $router->get("/", ['ProfileController@index', 'auth']);
-    $router->post('/', ['ProfileController@update', 'auth']);
-    $router->post('/changepass', ['ProfileController@changePass', 'auth']);
-    $router->post('/delete', ['ProfileController@delete', 'auth']);
+    $router->get("/", ['ProfileController@index']);
+    $router->post('/', ['ProfileController@update']);
+    $router->post('/changepass', ['ProfileController@changePass']);
+    $router->post('/delete', ['ProfileController@delete']);
 });
 
 $router->group(['prefix' => 'forgot/password'], function ($router) {

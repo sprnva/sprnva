@@ -132,10 +132,15 @@ class Router
 	public function group($param, $callback)
 	{
 		$previousGroupPrefix = $this->currentGroupPrefix;
+		$previousGroupMiddleware = $this->currentGroupMiddleware;
+
 		$this->currentGroupPrefix = $previousGroupPrefix . $param['prefix'];
-		$this->currentGroupMiddleware = $param['middleware'];
+		$this->currentGroupMiddleware = (!empty($param['middleware'])) ? $param['middleware'] : [];
+
 		$callback($this);
+
 		$this->currentGroupPrefix = $previousGroupPrefix;
+		$this->currentGroupMiddleware = $previousGroupMiddleware;
 	}
 
 	/**
@@ -146,6 +151,7 @@ class Router
 	 */
 	public function direct($uri, $requestType)
 	{
+		// dd($this->routes);
 		Auth::routeGuardian($this->routes[$requestType][$uri][0]);
 
 		if (array_key_exists($uri, $this->routes[$requestType])) {
