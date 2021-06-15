@@ -325,7 +325,6 @@ if (!function_exists('abort')) {
         $data = [
             'message' => ($message == "") ? error_page($code) : $message
         ];
-        compact('data');
         extract($data);
         return require "system/Error.php";
         die();
