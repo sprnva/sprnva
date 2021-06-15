@@ -289,11 +289,11 @@ function old($field)
     return Request::old($field);
 }
 
-/**
- * die and dump
- * 
- */
 if (!function_exists('dd')) {
+    /**
+     * die and dump
+     * 
+     */
     function dd()
     {
         foreach (func_get_args() as $x) {
@@ -304,11 +304,11 @@ if (!function_exists('dd')) {
     }
 }
 
-/**
- * database connection instance
- * 
- */
 if (!function_exists('db')) {
+    /**
+     * database connection instance
+     * 
+     */
     function DB()
     {
         return App::get('database');
