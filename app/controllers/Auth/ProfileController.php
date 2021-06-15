@@ -14,7 +14,7 @@ class ProfileController
     {
         $pageTitle = "Profile";
         $user_id = Auth::user('id');
-        $user_data = App::get('database')->select("*", 'users', "id='$user_id'");
+        $user_data = DB()->select("*", 'users', "id='$user_id'");
 
         return view('/auth/profile', compact('user_data', 'pageTitle'));
     }
@@ -32,7 +32,7 @@ class ProfileController
             'fullname' => "$request[name]"
         ];
 
-        App::get('database')->update('users', $update_data, "id = '$user_id'");
+        DB()->update('users', $update_data, "id = '$user_id'");
         redirect("/profile", ["Profile information updated.", 'success']);
     }
 
@@ -52,7 +52,7 @@ class ProfileController
     {
         Request::validate();
         $user_id = Auth::user('id');
-        App::get('database')->delete('users', "id = '$user_id'");
+        DB()->delete('users', "id = '$user_id'");
 
         Auth::logout();
     }

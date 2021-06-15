@@ -85,7 +85,7 @@ class SchemaFactory
 	public function tableExist($table)
 	{
 		$database = $this->database;
-		$fetch = App::get('database')->select("COUNT(TABLE_NAME) AS counted_rows", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_NAME = '$table'");
+		$fetch = DB()->select("COUNT(TABLE_NAME) AS counted_rows", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_NAME = '$table'");
 		return ($fetch['counted_rows'] > 0) ? 1 : 0;
 	}
 
@@ -97,7 +97,7 @@ class SchemaFactory
 	public function dropTable($table)
 	{
 		$this->foreignKeyChecks();
-		App::get('database')->query("DROP TABLE `$table`;");
+		DB()->query("DROP TABLE `$table`;");
 	}
 
 	/**
@@ -108,7 +108,7 @@ class SchemaFactory
 	public function dropIfExists($table)
 	{
 		$this->foreignKeyChecks();
-		App::get('database')->query("DROP TABLE IF EXISTS `$table`;");
+		DB()->query("DROP TABLE IF EXISTS `$table`;");
 	}
 
 	/**
@@ -117,7 +117,7 @@ class SchemaFactory
 	 */
 	public function foreignKeyChecks()
 	{
-		App::get('database')->query("SET FOREIGN_KEY_CHECKS=0;");
+		DB()->query("SET FOREIGN_KEY_CHECKS=0;");
 	}
 
 	/**
@@ -145,7 +145,7 @@ class SchemaFactory
 	{
 		$tables_arr = [];
 		$database = $this->database;
-		$loop_all_table = App::get('database')->selectLoop("TABLE_NAME", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_TYPE = 'BASE TABLE' ORDER BY TABLE_NAME ASC");
+		$loop_all_table = DB()->selectLoop("TABLE_NAME", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_TYPE = 'BASE TABLE' ORDER BY TABLE_NAME ASC");
 		if (count($loop_all_table) > 0) {
 			foreach ($loop_all_table as $tbl) {
 				$tables_arr[] = $tbl->TABLE_NAME;

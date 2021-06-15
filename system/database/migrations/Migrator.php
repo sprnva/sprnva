@@ -78,7 +78,7 @@ class Migrator
 				$migration_name = $this->removeDotPhp($file);
 				$schema = $this->runUp($file);
 				if ($schema != "") {
-					$query_response = App::get('database')->query($schema);
+					$query_response = DB()->query($schema);
 					if ($query_response) {
 
 						// Once we have run a migrations file, we will log that it was run in this
@@ -481,7 +481,7 @@ class Migrator
 				$migration_name = $this->removeDotPhp($file);
 				$schema = $this->runDown($file);
 				if ($schema != "") {
-					$query_response = App::get('database')->query($schema);
+					$query_response = DB()->query($schema);
 					if ($query_response) {
 
 						// Once we have run a migrations file, we remove migration to repository.

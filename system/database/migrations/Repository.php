@@ -19,7 +19,7 @@ class MigrationRepository
 	public function getRan()
 	{
 		$completed = [];
-		$migrations = App::get('database')->selectLoop("migrations", $this->table);
+		$migrations = DB()->selectLoop("migrations", $this->table);
 		if (count($migrations) > 0) {
 			foreach ($migrations as $done) {
 				$completed[] = $done->migrations;
@@ -38,7 +38,7 @@ class MigrationRepository
 	{
 		$migration_list = [];
 		$batch = $this->getLastBatchNumber();
-		$migrations = App::get('database')->selectLoop("migrations", $this->table, "batch = '$batch' ORDER BY id DESC");
+		$migrations = DB()->selectLoop("migrations", $this->table, "batch = '$batch' ORDER BY id DESC");
 		if (count($migrations) > 0) {
 			foreach ($migrations as $list) {
 				$migration_list[] = $list->migrations;
@@ -58,7 +58,7 @@ class MigrationRepository
 		// migrations have actually run for the application. We'll create the
 		// table to hold the migration file's path as well as the batch ID.
 		$migration_table = $this->table;
-		$response = App::get('database')->query("CREATE TABLE `$migration_table` (
+		$response = DB()->query("CREATE TABLE `$migration_table` (
 			`id` INT(11) NOT NULL AUTO_INCREMENT,
 			`migrations` TEXT NOT NULL COLLATE 'latin1_swedish_ci',
 			`batch` INT(11) NOT NULL,
@@ -78,7 +78,7 @@ class MigrationRepository
 	 */
 	public function getLastBatchNumber()
 	{
-		$batch_num = App::get('database')->select("batch", $this->table, "id > 0 ORDER BY batch DESC LIMIT 1");
+		$batch_num = DB()->select("batch", $this->table, "id > 0 ORDER BY batch DESC LIMIT 1");
 		return $batch_num['batch'];
 	}
 
@@ -97,7 +97,7 @@ class MigrationRepository
 	 */
 	public function log($migration_name, $migration_batch)
 	{
-		App::get('database')->insert($this->table, ['migrations' => $migration_name, 'batch' => $migration_batch]);
+		DB()->insert($this->table, ['migrations' => $migration_name, 'batch' => $migration_batch]);
 	}
 
 	/**
@@ -106,7 +106,7 @@ class MigrationRepository
 	 */
 	public function delete($migration_name, $migration_batch)
 	{
-		App::get('database')->delete($this->table, "migrations = '$migration_name' AND batch = '$migration_batch'");
+		DB()->delete($this->table, "migrations = '$migration_name' AND batch = '$migration_batch'");
 	}
 
 	/**

@@ -35,7 +35,7 @@ class RegisterController
             'created_at' => date("Y-m-d H:i:s")
         ];
 
-        App::get('database')->insert("users", $register_user);
+        DB()->insert("users", $register_user);
         redirect('/register', ["Success register", "success"]);
     }
 }

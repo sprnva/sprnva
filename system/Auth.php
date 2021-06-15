@@ -22,7 +22,7 @@ class Auth
      */
     public static function authenticate($request)
     {
-        $datas = App::get('database')->select("*", "users", "username = '$request[username]' AND password = md5('$request[password]')");
+        $datas = DB()->select("*", "users", "username = '$request[username]' AND password = md5('$request[password]')");
 
         if (!$datas) {
             redirect('/login', ["User not found.", 'danger']);
@@ -97,7 +97,7 @@ class Auth
                     'password' => md5($request["new-password"]),
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
-                App::get('database')->update('users', $update_pass, "id = '$user_id'");
+                DB()->update('users', $update_pass, "id = '$user_id'");
                 $response_message = ["Password has changed.", "success"];
             } else {
                 $response_message = ["Passwords must match.", "danger"];
@@ -116,7 +116,7 @@ class Auth
      */
     public static function resetPasswordWithToken($request)
     {
-        $isTokenLegit = App::get('database')->select("email", "password_resets", "token = '$request[token]'");
+        $isTokenLegit = DB()->select("email", "password_resets", "token = '$request[token]'");
 
         if ($isTokenLegit) {
 
@@ -127,9 +127,9 @@ class Auth
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
 
-                App::get('database')->update("users", $reset_password, "email = '$isTokenLegit[email]'");
+                DB()->update("users", $reset_password, "email = '$isTokenLegit[email]'");
 
-                App::get('database')->delete("password_resets", "email = '$isTokenLegit[email]' AND token = '$request[token]'");
+                DB()->delete("password_resets", "email = '$isTokenLegit[email]' AND token = '$request[token]'");
 
                 redirect('/login', ["Success reset password", "success"]);
             } else {
