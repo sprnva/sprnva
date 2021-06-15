@@ -315,11 +315,11 @@ if (!function_exists('db')) {
     }
 }
 
-/**
- * abort and display error message
- * 
- */
 if (!function_exists('abort')) {
+    /**
+     * abort and display error message
+     * 
+     */
     function abort($code, $message = '')
     {
         $data = [
