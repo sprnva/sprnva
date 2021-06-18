@@ -33,10 +33,14 @@ class QueryBuilder
 	 */
 	public function select($columns, $table, $params = '')
 	{
-		$inject = ($params == '') ? "" : "WHERE $params";
-		$statement = $this->pdo->prepare("SELECT {$columns} FROM {$table} {$inject}");
-		$statement->execute();
-		return $statement->fetch(PDO::FETCH_ASSOC);
+		try {
+			$inject = ($params == '') ? "" : "WHERE $params";
+			$statement = $this->pdo->prepare("SELECT {$columns} FROM {$table} {$inject}");
+			$statement->execute();
+			return $statement->fetch(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			throwException("Whoops! error occurred.", $e);
+		}
 	}
 
 	/**
@@ -46,10 +50,14 @@ class QueryBuilder
 	 */
 	public function selectLoop($column, $table, $params = '')
 	{
-		$inject = ($params == '') ? "" : "WHERE $params";
-		$statement = $this->pdo->prepare("select {$column} from {$table} {$inject}");
-		$statement->execute();
-		return $statement->fetchAll(PDO::FETCH_CLASS);
+		try {
+			$inject = ($params == '') ? "" : "WHERE $params";
+			$statement = $this->pdo->prepare("select {$column} from {$table} {$inject}");
+			$statement->execute();
+			return $statement->fetchAll(PDO::FETCH_ASSOC);
+		} catch (Exception $e) {
+			throwException("Whoops! error occurred.", $e);
+		}
 	}
 
 	/**

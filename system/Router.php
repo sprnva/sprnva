@@ -151,7 +151,6 @@ class Router
 	 */
 	public function direct($uri, $requestType)
 	{
-		// dd($this->routes);
 		Auth::routeGuardian($this->routes[$requestType][$uri][0]);
 
 		if (array_key_exists($uri, $this->routes[$requestType])) {
