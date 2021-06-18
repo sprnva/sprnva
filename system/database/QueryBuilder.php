@@ -181,7 +181,7 @@ class QueryBuilder
 			$statement->execute();
 
 			if ($fetch == "Y") {
-				return $statement->fetchAll(PDO::FETCH_CLASS);
+				return $statement->fetchAll(PDO::FETCH_ASSOC);
 			} else {
 				if ($statement) {
 					return 1;
