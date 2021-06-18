@@ -13,8 +13,12 @@ class Dumper
             if (is_array($x)) {
                 $countArray = count($x);
                 $data .= "<div class='collections'>";
-                $data .= "<span class='array_color'>array:{$countArray}</span> [<span class='drpDwn'></span>";
-                $data .= static::dumpChild($x);
+                if ($countArray < 1) {
+                    $data .= "<span class='array_color'>array:{$countArray}</span> []";
+                } else {
+                    $data .= "<span class='array_color'>array:{$countArray}</span> [<span class='drpDwn'></span>";
+                    $data .= static::dumpChild($x);
+                }
                 $data .= "</div>";
             } else {
                 $data .= "<div class='collections'>";
