@@ -22,7 +22,7 @@ class MigrationRepository
 		$migrations = DB()->selectLoop("migrations", $this->table);
 		if (count($migrations) > 0) {
 			foreach ($migrations as $done) {
-				$completed[] = $done->migrations;
+				$completed[] = $done['migrations'];
 			}
 		}
 
@@ -41,7 +41,7 @@ class MigrationRepository
 		$migrations = DB()->selectLoop("migrations", $this->table, "batch = '$batch' ORDER BY id DESC");
 		if (count($migrations) > 0) {
 			foreach ($migrations as $list) {
-				$migration_list[] = $list->migrations;
+				$migration_list[] = $list['migrations'];
 			}
 		}
 
