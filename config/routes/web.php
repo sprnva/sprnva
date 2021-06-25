@@ -1,14 +1,22 @@
 <?php
 
-use App\Core\App;
+/**
+ * --------------------------------------------------------------------------
+ * Routes
+ * --------------------------------------------------------------------------
+ * 
+ * Here is where you can register routes for your application.
+ * Now create something great!
+ * 
+ */
+
 use App\Core\Auth;
 
-// your routes goes here
 $router->get('/', ['WelcomeController@home', 'auth']);
-$router->get('/home', ['WelcomeController@home', 'auth']);
 
-// file upload
-$router->group(['prefix' => 'file/upload', 'middleware' => ['auth']], function ($router) {
-    $router->post('/', ['FileUploadController@store']);
-    $router->delete('/', ['FileUploadController@delete']);
+$router->get('/home', function () {
+    Auth::routeGuardian(['auth']);
+
+    $pageTitle = "Home";
+    return view('/home', compact('pageTitle'));
 });

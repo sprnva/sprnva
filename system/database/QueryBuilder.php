@@ -4,6 +4,7 @@ namespace App\Core\Database;
 
 use PDO;
 use Exception;
+use App\Core\Filesystem;
 
 class QueryBuilder
 {
@@ -192,5 +193,32 @@ class QueryBuilder
 		} catch (Exception $e) {
 			throwException("Whoops! error occurred.", $e);
 		}
+	}
+
+	/**
+	 * seed a record/s into the database.
+	 *
+	 */
+	public function seeder($table, $length, $tableColumns = [])
+	{
+		Filesystem::noMemoryLimit();
+		$start_time = microtime(TRUE);
+
+		$iterate = function ($tableColumns, $length) {
+			for ($x = 0; $x < $length; $x++) {
+				yield $tableColumns;
+			}
+		};
+
+		foreach (iterator_to_array($iterate($tableColumns, $length)) as $customerInfo) {
+			DB()->insert($table, $customerInfo);
+		}
+
+		$end_time = microtime(TRUE);
+		$time_taken = ($end_time - $start_time);
+		$time_taken = round($time_taken, 5);
+		$memoryUsage = (round(memory_get_peak_usage() / 1024 / 1024));
+
+		return "Success seed! Page generated in {$time_taken} seconds using {$memoryUsage}MB.";
 	}
 }
