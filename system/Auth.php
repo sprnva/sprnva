@@ -90,8 +90,9 @@ class Auth
     public static function resetPassword($request)
     {
         $user_id = Auth::user('id');
+        $userCurrent = DB()->select('password', 'users', "id = '$user_id'");
 
-        if (md5($request["old-password"]) == Auth::user('password')) {
+        if (md5($request["old-password"]) == $userCurrent['password']) {
             if ($request["new-password"] == $request["confirm-password"]) {
                 $update_pass = [
                     'password' => md5($request["new-password"]),

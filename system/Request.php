@@ -167,7 +167,7 @@ class Request
 			$values = [
 				App::get('config')['app']['name'],
 				$isEmailExist['fullname'],
-				$_SERVER['SERVER_NAME'] . "/" . App::get('config')['app']['base_url'] . "reset/password/" . $token,
+				$_SERVER['SERVER_NAME'] . "/" . App::get('config')['app']['base_url'] . "/reset/password/" . $token,
 				date('Y')
 			];
 			$body_content = str_replace($app_name, $values, $emailTemplate);
