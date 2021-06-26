@@ -29,6 +29,7 @@ require 'layouts/head.php'; ?>
     <p class="lead">SPRNVA will provide you experience and expand your vision for a better understanding of the basics. Using this template will provide enough ideas to step forward from the beginning. Featuring Model-view-controller software design pattern, debugging, secure and organized routing, built-in authentication functions and more.</p>
     <hr class="my-4">
     <p>SPRNVA is a PHP template that brightens your horizon in future engagement for massive frameworks.</p>
+    <p>Visit the documentation here: <a href="https://sprnva.000webhostapp.com/" target="_blank">https://sprnva.000webhostapp.com/</a></p>
 </div>
 
 <?php require 'layouts/footer.php'; ?>
