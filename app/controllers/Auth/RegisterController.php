@@ -30,7 +30,7 @@ class RegisterController
             'email' => $request['email'],
             'fullname' => $request['name'],
             'username' => $request['username'],
-            'password' => md5($request['password']),
+            'password' => bcrypt($request['password']),
             'updated_at' => date("Y-m-d H:i:s"),
             'created_at' => date("Y-m-d H:i:s")
         ];

@@ -22,9 +22,10 @@ class Auth
      */
     public static function authenticate($request)
     {
-        $datas = DB()->select("*", "users", "username = '$request[username]' AND password = md5('$request[password]')");
+        $datas = DB()->select("*", "users", "username = '$request[username]'");
+        $passchecker = checkHash($request['password'], $datas['password']);
 
-        if (!$datas) {
+        if ($passchecker == "") {
             redirect('/login', ["User not found.", 'danger']);
         }
 
@@ -91,11 +92,12 @@ class Auth
     {
         $user_id = Auth::user('id');
         $userCurrent = DB()->select('password', 'users', "id = '$user_id'");
+        $passwordCheck = checkHash($request["old-password"], $userCurrent['password']);
 
-        if (md5($request["old-password"]) == $userCurrent['password']) {
+        if ($passwordCheck) {
             if ($request["new-password"] == $request["confirm-password"]) {
                 $update_pass = [
-                    'password' => md5($request["new-password"]),
+                    'password' => bcrypt($request["new-password"]),
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
                 DB()->update('users', $update_pass, "id = '$user_id'");
@@ -124,7 +126,7 @@ class Auth
             if ($request["new_password"] == $request["confirm_password"]) {
 
                 $reset_password = [
-                    'password' => md5($request['new_password']),
+                    'password' => bcrypt($request['new_password']),
                     'updated_at' => date("Y-m-d H:i:s")
                 ];
 

@@ -89,8 +89,6 @@ class Request
 	{
 		$errorList = static::validator($datas);
 
-		// die(var_dump($_REQUEST));
-
 		foreach ($_REQUEST as $key => $value) {
 			$post_data[$key] = sanitizeString($value);
 

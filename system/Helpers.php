@@ -3,6 +3,7 @@
 session_start();
 
 use App\Core\App;
+use App\Core\BcryptHasher;
 use App\Core\Dumper;
 use App\Core\Request;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -116,11 +117,11 @@ function sendMail($subject, $body, $recipients)
         //Server settings
         $mail->SMTPDebug = 0;
         $mail->isSMTP();
-        $mail->Host       = App::get('config')['app']['smtp_host'];
-        $mail->SMTPAuth   = App::get('config')['app']['smtp_auth'];
+        $mail->Host = App::get('config')['app']['smtp_host'];
+        $mail->SMTPAuth = App::get('config')['app']['smtp_auth'];
         $mail->SMTPAutoTLS = App::get('config')['app']['smtp_auto_tls'];
-        $mail->Username   = App::get('config')['app']['smtp_username'];
-        $mail->Password   = App::get('config')['app']['smtp_password'];
+        $mail->Username = App::get('config')['app']['smtp_username'];
+        $mail->Password = App::get('config')['app']['smtp_password'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->SMTPOptions = array(
             'ssl' => array(
@@ -129,10 +130,10 @@ function sendMail($subject, $body, $recipients)
                 'allow_self_signed' => true
             )
         );
-        $mail->Port       = App::get('config')['app']['smtp_port'];
+        $mail->Port = App::get('config')['app']['smtp_port'];
 
         //Recipients
-        $mail->setFrom('sprnva04@gmail.com', 'Sprnva');
+        $mail->setFrom(App::get('config')['app']['smtp_username'], 'Sprnva');
         $mail->addAddress($recipients);
 
         //Content
@@ -406,6 +407,31 @@ function error_page($code)
     if (array_key_exists($code, $codes)) {
         return $codes[$code];
     }
+}
+
+/**
+ * Hash the given value
+ * 
+ * @param  string  $value
+ * @return string
+ */
+function bcrypt($value)
+{
+    $bcryptHaser = new BcryptHasher();
+    return $bcryptHaser->make($value);
+}
+
+/**
+ * Check the given plain value against a hash.
+ * 
+ * @param  string  $value
+ * @param  string  $hashedValue
+ * @return bool
+ */
+function checkHash($value, $hashedValue)
+{
+    $bcryptHaser = new BcryptHasher();
+    return $bcryptHaser->check($value, $hashedValue);
 }
 
 // add additional helper functions from the users
