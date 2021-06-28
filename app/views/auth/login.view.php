@@ -27,6 +27,12 @@ use App\Core\App;
             color: #26425f;
             background: #eef1f4;
         }
+
+        .card {
+            box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+            margin-bottom: 1rem;
+            border-radius: .5rem !important;
+        }
     </style>
 
     <script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
@@ -86,7 +92,7 @@ use App\Core\App;
 
         <div class="row justify-content-md-center">
             <div class="col-md-5">
-                <div class="card mt-4" style="background-color: #fff; border: 0px; border-radius: 8px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
+                <div class="card mt-2" style="background-color: #fff; border: 0px; border-radius: 8px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
                     <div class="card-body d-flex justify-content-center align-items-center">
 
                         <small id="emailHelp" class="form-text text-muted mb-1">We'll never share your email with anyone else.</small>

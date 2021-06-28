@@ -27,6 +27,12 @@ use App\Core\App;
             color: #26425f;
             background: #eef1f4;
         }
+
+        .card {
+            box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+            margin-bottom: 1rem;
+            border-radius: .5rem !important;
+        }
     </style>
 
     <script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>

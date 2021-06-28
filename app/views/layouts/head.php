@@ -36,6 +36,7 @@ use App\Core\Auth;
 		.card {
 			box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
 			margin-bottom: 1rem;
+			border-radius: .5rem !important;
 		}
 	</style>
 
