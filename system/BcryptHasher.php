@@ -28,8 +28,8 @@ class BcryptHasher
      */
     public function __construct(array $options = [])
     {
-        $this->rounds = $options['rounds'] ?? $this->rounds;
-        $this->verifyAlgorithm = $options['verify'] ?? $this->verifyAlgorithm;
+        $this->rounds = (!empty($options['rounds'])) ? $options['rounds'] : $this->rounds;
+        $this->verifyAlgorithm = (!empty($options['verify'])) ? $options['verify'] : $this->verifyAlgorithm;
     }
 
     /**
@@ -136,6 +136,6 @@ class BcryptHasher
      */
     protected function cost(array $options = [])
     {
-        return $options['rounds'] ?? $this->rounds;
+        return (!empty($options['rounds'])) ? $options['rounds'] : $this->rounds;
     }
 }
