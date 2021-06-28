@@ -17,13 +17,25 @@ use App\Core\Auth;
 	<link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/bootstrap.min.css') ?>">
 
 	<style>
+		@font-face {
+			font-family: Nunito;
+			src: url("<?= public_url('/assets/sprnva/fonts/Nunito-Regular.ttf') ?>");
+		}
+
 		body {
-			background-color: #eef1f4;
-			font-weight: 350;
+			font-weight: 300;
+			font-family: Nunito;
+			color: #26425f;
+			background: #eef1f4;
 		}
 
 		.bg-light {
 			background-color: #ffffff !important;
+		}
+
+		.card {
+			box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+			margin-bottom: 1rem;
 		}
 	</style>
 

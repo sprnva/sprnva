@@ -16,8 +16,16 @@ use App\Core\App;
     <link rel="stylesheet" href="<?= public_url('/assets/sprnva/css/bootstrap.min.css') ?>">
 
     <style>
+        @font-face {
+            font-family: Nunito;
+            src: url("<?= public_url('/assets/sprnva/fonts/Nunito-Regular.ttf') ?>");
+        }
+
         body {
-            background-color: #eef1f4;
+            font-weight: 300;
+            font-family: Nunito;
+            color: #26425f;
+            background: #eef1f4;
         }
     </style>
 
