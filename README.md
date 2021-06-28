@@ -47,4 +47,4 @@ $ composer dump-autoload
 $ http://localhost/sprnva/migration
 ```
 
-#### Now you are in the database migration page, click the "Fresh" button to generate default tables and start adding users. You can know run your application in your browser as easy as that.
+#### Now you are in the database migration page, click the "Fresh" button to generate default tables and start adding users. You can now run your application in your browser as easy as that.
