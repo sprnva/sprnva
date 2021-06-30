@@ -22,7 +22,7 @@ class Auth
      */
     public static function authenticate($request)
     {
-        $datas = DB()->select("*", "users", "username = '$request[username]'");
+        $datas = DB()->select("*", "users", "username = '$request[username]'")->get();
         $passchecker = checkHash($request['password'], $datas['password']);
 
         if ($passchecker == "") {
@@ -91,7 +91,7 @@ class Auth
     public static function resetPassword($request)
     {
         $user_id = Auth::user('id');
-        $userCurrent = DB()->select('password', 'users', "id = '$user_id'");
+        $userCurrent = DB()->select('password', 'users', "id = '$user_id'")->get();
         $passwordCheck = checkHash($request["old-password"], $userCurrent['password']);
 
         if ($passwordCheck) {
@@ -119,7 +119,7 @@ class Auth
      */
     public static function resetPasswordWithToken($request)
     {
-        $isTokenLegit = DB()->select("email", "password_resets", "token = '$request[token]'");
+        $isTokenLegit = DB()->select("email", "password_resets", "token = '$request[token]'")->get();
 
         if ($isTokenLegit) {
 

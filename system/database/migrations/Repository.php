@@ -19,7 +19,7 @@ class MigrationRepository
 	public function getRan()
 	{
 		$completed = [];
-		$migrations = DB()->selectLoop("migrations", $this->table);
+		$migrations = DB()->selectLoop("migrations", $this->table)->get();
 		if (count($migrations) > 0) {
 			foreach ($migrations as $done) {
 				$completed[] = $done['migrations'];
@@ -38,7 +38,7 @@ class MigrationRepository
 	{
 		$migration_list = [];
 		$batch = $this->getLastBatchNumber();
-		$migrations = DB()->selectLoop("migrations", $this->table, "batch = '$batch' ORDER BY id DESC");
+		$migrations = DB()->selectLoop("migrations", $this->table, "batch = '$batch' ORDER BY id DESC")->get();
 		if (count($migrations) > 0) {
 			foreach ($migrations as $list) {
 				$migration_list[] = $list['migrations'];
@@ -78,7 +78,7 @@ class MigrationRepository
 	 */
 	public function getLastBatchNumber()
 	{
-		$batch_num = DB()->select("batch", $this->table, "id > 0 ORDER BY batch DESC LIMIT 1");
+		$batch_num = DB()->select("batch", $this->table, "id > 0 ORDER BY batch DESC LIMIT 1")->get();
 		return $batch_num['batch'];
 	}
 

@@ -150,7 +150,7 @@ class Request
 	 */
 	public static function passwordResetLink($request)
 	{
-		$isEmailExist = DB()->select("*", "users", "email = '" . $request['email'] . "'");
+		$isEmailExist = DB()->select("*", "users", "email = '" . $request['email'] . "'")->get();
 
 		if (!$isEmailExist) {
 			redirect('/forgot/password', ['E-mail not found in the server.', 'danger']);
@@ -182,7 +182,7 @@ class Request
 					'created_at' => date("Y-m-d H:i:s")
 				];
 
-				$hasResetPending = DB()->select("email", "password_resets", "email = '" . $request['email'] . "'");
+				$hasResetPending = DB()->select("email", "password_resets", "email = '" . $request['email'] . "'")->get();
 
 				if (!empty($hasResetPending['email'])) {
 					DB()->update('password_resets', $insertData, "email = '" . $request['email'] . "'");

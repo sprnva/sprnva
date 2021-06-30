@@ -16,6 +16,12 @@ class QueryBuilder
 	protected $pdo;
 
 	/**
+	 * The actual result of the statement.
+	 *
+	 */
+	private $result;
+
+	/**
 	 * Create a new QueryBuilder instance.
 	 *
 	 * @param PDO $pdo
@@ -38,7 +44,8 @@ class QueryBuilder
 			$inject = ($params == '') ? "" : "WHERE $params";
 			$statement = $this->pdo->prepare("SELECT {$columns} FROM {$table} {$inject}");
 			$statement->execute();
-			return $statement->fetch(PDO::FETCH_ASSOC);
+			$this->result = $statement->fetch(PDO::FETCH_ASSOC);
+			return $this;
 		} catch (Exception $e) {
 			throwException("Whoops! error occurred.", $e);
 		}
@@ -55,10 +62,80 @@ class QueryBuilder
 			$inject = ($params == '') ? "" : "WHERE $params";
 			$statement = $this->pdo->prepare("select {$column} from {$table} {$inject}");
 			$statement->execute();
-			return $statement->fetchAll(PDO::FETCH_ASSOC);
+			$this->result = $statement->fetchAll(PDO::FETCH_ASSOC);
+			return $this;
 		} catch (Exception $e) {
 			throwException("Whoops! error occurred.", $e);
 		}
+	}
+
+	/**
+	 * GET the result of a query
+	 * 
+	 */
+	public function get()
+	{
+		return $this->result;
+	}
+
+	/**
+	 * this will solve n+1 problem
+	 * will get the data of the foreign id in the current table
+	 * 
+	 */
+	public function with($params = [])
+	{
+		$currentTableDatas = $this->result;
+
+		$collectedIdFrom = [];
+		foreach ($params as $relationTable => $param) {
+			$foreignIdFromCurrentTable = [];
+			foreach ($currentTableDatas as $key => $currentTableData) {
+				if (is_array($currentTableData)) {
+					$foreignIdFromCurrentTable[] = $currentTableData[$param[0]];
+				} else {
+					$foreignIdFromCurrentTable[] = $currentTableDatas[$param[0]];
+				}
+			}
+
+			$collectedIdFrom[$relationTable] = $foreignIdFromCurrentTable;
+		}
+
+		$relationDatas = [];
+		foreach ($params as $relationTable => $primaryColumn) {
+			$relationPrimaryColumn = $primaryColumn[1];
+			$implodedIds = implode(',', array_unique($collectedIdFrom[$relationTable]));
+
+			$statement = $this->pdo->prepare("SELECT * FROM `{$relationTable}` WHERE `{$relationTable}`.`$relationPrimaryColumn` IN($implodedIds)");
+			$statement->execute();
+			$relationDatas[$relationTable] = $statement->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		$newResultSet = [];
+		foreach ($currentTableDatas as $currentTableData) {
+			foreach ($params as $relationTable => $primaryColumn) {
+				foreach ($relationDatas[$relationTable] as $key => $relationData) {
+					if (is_array($currentTableData)) {
+						if ($currentTableData[$primaryColumn[0]] == $relationData[$primaryColumn[1]]) {
+							$currentTableData[$relationTable] = $relationData;
+						}
+					} else {
+						if ($currentTableDatas[$primaryColumn[0]] == $relationData[$primaryColumn[1]]) {
+							$currentTableDatas[$relationTable] = $relationData;
+						}
+					}
+				}
+			}
+
+			if (is_array($currentTableData)) {
+				$newResultSet[] = $currentTableData;
+			} else {
+				$newResultSet = $currentTableDatas;
+			}
+		}
+
+		$this->result = $newResultSet;
+		return $this;
 	}
 
 	/**
@@ -182,7 +259,8 @@ class QueryBuilder
 			$statement->execute();
 
 			if ($fetch == "Y") {
-				return $statement->fetchAll(PDO::FETCH_ASSOC);
+				$this->result = $statement->fetchAll(PDO::FETCH_ASSOC);
+				return $this;
 			} else {
 				if ($statement) {
 					return 1;

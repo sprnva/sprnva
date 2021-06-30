@@ -14,7 +14,7 @@ class ProfileController
     {
         $pageTitle = "Profile";
         $user_id = Auth::user('id');
-        $user_data = DB()->select("*", 'users', "id='$user_id'");
+        $user_data = DB()->select("*", 'users', "id='$user_id'")->get();
 
         return view('/auth/profile', compact('user_data', 'pageTitle'));
     }

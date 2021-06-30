@@ -85,7 +85,7 @@ class SchemaFactory
 	public function tableExist($table)
 	{
 		$database = $this->database;
-		$fetch = DB()->select("COUNT(TABLE_NAME) AS counted_rows", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_NAME = '$table'");
+		$fetch = DB()->select("COUNT(TABLE_NAME) AS counted_rows", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_NAME = '$table'")->get();
 		return ($fetch['counted_rows'] > 0) ? 1 : 0;
 	}
 
@@ -145,7 +145,7 @@ class SchemaFactory
 	{
 		$tables_arr = [];
 		$database = $this->database;
-		$loop_all_table = DB()->selectLoop("TABLE_NAME", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_TYPE = 'BASE TABLE' ORDER BY TABLE_NAME ASC");
+		$loop_all_table = DB()->selectLoop("TABLE_NAME", "INFORMATION_SCHEMA.TABLES", "TABLE_SCHEMA = '$database' AND TABLE_TYPE = 'BASE TABLE' ORDER BY TABLE_NAME ASC")->get();
 		if (count($loop_all_table) > 0) {
 			foreach ($loop_all_table as $tbl) {
 				$tables_arr[] = $tbl['TABLE_NAME'];
