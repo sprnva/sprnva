@@ -104,9 +104,9 @@ class QueryBuilder
 		$relationDatas = [];
 		foreach ($params as $relationTable => $primaryColumn) {
 			$relationPrimaryColumn = $primaryColumn[1];
-			$implodedIds = implode(',', array_unique($collectedIdFrom[$relationTable]));
+			$implodedIds = implode("','", array_unique($collectedIdFrom[$relationTable]));
 
-			$statement = $this->pdo->prepare("SELECT * FROM `{$relationTable}` WHERE `{$relationTable}`.`$relationPrimaryColumn` IN($implodedIds)");
+			$statement = $this->pdo->prepare("SELECT * FROM `{$relationTable}` WHERE `{$relationTable}`.`$relationPrimaryColumn` IN('$implodedIds')");
 			$statement->execute();
 			$relationDatas[$relationTable] = $statement->fetchAll(PDO::FETCH_ASSOC);
 		}
