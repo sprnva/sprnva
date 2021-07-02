@@ -18,6 +18,7 @@ use App\Core\App;
 	<style>
 		body {
 			background-color: #eef1f4;
+			color: #26425f;
 		}
 	</style>
 
@@ -85,8 +86,8 @@ use App\Core\App;
 		</div>
 
 		<div class="row">
-			<div class="col-md-12" style="text-align: center;">
-				<span>made with coffee && love by J.Guapin</span>
+			<div class="col-md-12 text-center mt-2">
+				<span>&copy; 2021 Sprnva - By Judywen Guapin</span>
 			</div>
 		</div>
 	</div>
