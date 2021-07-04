@@ -166,6 +166,10 @@ class QueryBuilder
 		return $this;
 	}
 
+	/**
+	 * Listens for all the database queries
+	 * 
+	 */
 	public function listen()
 	{
 		return $this->listen;
