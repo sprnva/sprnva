@@ -22,6 +22,18 @@ class QueryBuilder
 	private $result;
 
 	/**
+	 * additional where params for with() method
+	 *
+	 */
+	private $withFilter;
+
+	/**
+	 * will listen to all queries
+	 *
+	 */
+	private $listen = [];
+
+	/**
 	 * Create a new QueryBuilder instance.
 	 *
 	 * @param PDO $pdo
@@ -44,6 +56,7 @@ class QueryBuilder
 			$inject = ($params == '') ? "" : "WHERE $params";
 			$statement = $this->pdo->prepare("SELECT {$columns} FROM {$table} {$inject}");
 			$statement->execute();
+			$this->listen[] = "SELECT {$columns} FROM {$table} {$inject}";
 			$this->result = $statement->fetch(PDO::FETCH_ASSOC);
 			return $this;
 		} catch (Exception $e) {
@@ -62,6 +75,7 @@ class QueryBuilder
 			$inject = ($params == '') ? "" : "WHERE $params";
 			$statement = $this->pdo->prepare("select {$column} from {$table} {$inject}");
 			$statement->execute();
+			$this->listen[] = "select {$column} from {$table} {$inject}";
 			$this->result = $statement->fetchAll(PDO::FETCH_ASSOC);
 			return $this;
 		} catch (Exception $e) {
@@ -106,8 +120,12 @@ class QueryBuilder
 			$relationPrimaryColumn = $primaryColumn[1];
 			$implodedIds = implode("','", array_unique($collectedIdFrom[$relationTable]));
 
-			$statement = $this->pdo->prepare("SELECT * FROM `{$relationTable}` WHERE `{$relationTable}`.`$relationPrimaryColumn` IN('$implodedIds')");
+			$andFilter = $this->withFilter[$relationTable];
+
+			$statement = $this->pdo->prepare("SELECT * FROM `{$relationTable}` WHERE `{$relationTable}`.`$relationPrimaryColumn` IN('$implodedIds') {$andFilter}");
 			$statement->execute();
+
+			$this->listen[] = "SELECT * FROM `{$relationTable}` WHERE `{$relationTable}`.`$relationPrimaryColumn` IN('$implodedIds') {$andFilter}";
 			$relationDatas[$relationTable] = $statement->fetchAll(PDO::FETCH_ASSOC);
 		}
 
@@ -139,6 +157,21 @@ class QueryBuilder
 	}
 
 	/**
+	 * add extra where params to the with() mwthod
+	 * 
+	 */
+	public function andFilter($andFilter = [])
+	{
+		$this->withFilter = $andFilter;
+		return $this;
+	}
+
+	public function listen()
+	{
+		return $this->listen;
+	}
+
+	/**
 	 * insert record to a database table.
 	 *
 	 * @param string $table_name
@@ -155,6 +188,7 @@ class QueryBuilder
 			$statement = $this->pdo->prepare($sql);
 			$statement->execute();
 
+			$this->listen[] = "INSERT INTO " . $table_name . "(`" . implode('`,`', $fields) . "`) VALUES ('" . implode("','", $form_data) . "')";
 			$lastID = $this->pdo->lastInsertId();
 			if ($last_id == 'Y') {
 				if ($statement) {
@@ -203,6 +237,8 @@ class QueryBuilder
 			$statement = $this->pdo->prepare($sql);
 			$statement->execute();
 
+			$this->listen[] = $sql;
+
 			if ($statement) {
 				return 1;
 			} else {
@@ -236,6 +272,8 @@ class QueryBuilder
 			$statement = $this->pdo->prepare($sql);
 			$statement->execute();
 
+			$this->listen[] = $sql;
+
 			if ($statement) {
 				return 1;
 			} else {
@@ -257,6 +295,8 @@ class QueryBuilder
 		try {
 			$statement = $this->pdo->prepare($query);
 			$statement->execute();
+
+			$this->listen[] = $query;
 
 			if ($fetch == "Y") {
 				$this->result = $statement->fetchAll(PDO::FETCH_ASSOC);
