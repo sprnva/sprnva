@@ -210,6 +210,10 @@ class Router
 			throwException("{$controller} does not respond to the [{$action}] action.", new Exception());
 		}
 
-		return call_user_func_array([$controllerClass, $action], $param_array);
+		if (!empty($param_array)) {
+			return call_user_func_array([$controllerClass, $action], $param_array);
+		} else {
+			return call_user_func([$controllerClass, $action]);
+		}
 	}
 }
