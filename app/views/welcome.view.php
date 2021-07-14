@@ -105,7 +105,7 @@ use App\Core\Auth;
                 <div class="card mt-3">
                     <!-- <h5 class="card-header">Welcome to your Sprnva application!</h5> -->
                     <div class="card-body">
-                        <p class="card-text">SPRNVA will provide you experience and expand your vision for a better understanding of the basics. Using this template will provide enough ideas to step forward from the beginning. Featuring Model-view-controller software design pattern, debugging, secure and organized routing, built-in authentication functions and more.</p>
+                        <p class="card-text">Sprnva will provide you experience and expand your vision for a better understanding of the basics. We'll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. Featuring Model-view-controller software design pattern, debugging, secure and organized routing, expressive database builder, built-in authentication and more.</p>
                     </div>
 
                     <div class="col-12">

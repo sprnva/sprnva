@@ -6,11 +6,6 @@ use App\Core\Request;
 require 'layouts/head.php'; ?>
 
 <style>
-    .wlcm-link {
-        text-decoration: underline !important;
-        color: inherit;
-    }
-
     .welcome-msg {
         margin-top: 10%;
     }

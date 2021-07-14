@@ -13,7 +13,7 @@
 use App\Core\Auth;
 
 $router->get('/', function () {
-    $pageTitle = "Home";
+    $pageTitle = "Welcome";
     return view('/welcome', compact('pageTitle'));
 });
 
