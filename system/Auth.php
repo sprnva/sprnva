@@ -76,10 +76,10 @@ class Auth
         if (!empty($request)) {
             Request::verifyCsrfToken($request['_token']);
             static::sessionInvalidate();
-            redirect('/login');
+            redirect('/');
         } else {
             static::sessionInvalidate();
-            redirect('/login');
+            redirect('/');
         }
     }
 

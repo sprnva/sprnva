@@ -12,11 +12,9 @@
 
 use App\Core\Auth;
 
-$router->get('/', ['WelcomeController@home', 'auth']);
-
-$router->get('/home', function () {
-    Auth::routeGuardian(['auth']);
-
+$router->get('/', function () {
     $pageTitle = "Home";
-    return view('/home', compact('pageTitle'));
+    return view('/welcome', compact('pageTitle'));
 });
+
+$router->get('/home', ['WelcomeController@home', 'auth']);
