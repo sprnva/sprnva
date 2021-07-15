@@ -37,6 +37,7 @@ class Auth
         }
 
         $_SESSION["AUTH"] = $users;
+        Request::invalidateOld();
         Request::renewCsrfToken();
 
         redirect('/home');
@@ -74,7 +75,7 @@ class Auth
     public static function logout($request = '')
     {
         if (!empty($request)) {
-            Request::verifyCsrfToken($request['_token']);
+            Request::verifyCsrfToken($request['csrf_token']);
             static::sessionInvalidate();
             redirect('/');
         } else {

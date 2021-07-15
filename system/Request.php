@@ -103,12 +103,12 @@ class Request
 			redirect($uri, [implode('<br>', $errorList), "danger"]);
 		}
 
-		if (isset($_REQUEST['_token'])) {
-			static::verifyCsrfToken($_REQUEST['_token']);
+		if (isset($_REQUEST['csrf_token'])) {
+			static::verifyCsrfToken($_REQUEST['csrf_token']);
 		}
 
 		if (!empty($_SERVER['HTTP_X_CSRF_TOKEN'])) {
-			static::verifyCsrfToken($_REQUEST['_token']);
+			static::verifyCsrfToken($_REQUEST['csrf_token']);
 		}
 
 		return $post_data;
