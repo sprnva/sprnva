@@ -4,7 +4,9 @@ Sprnva is a beautifully designed application starter kit for you and provides th
 docs: http://sprnva.000webhostapp.com/
 <br>
 Sprnva is designed using bootstrap 4 and offers your choice of using different stacks.
-![sprnva-home](https://user-images.githubusercontent.com/37282871/112921756-ee2ea900-913d-11eb-85e2-1a4d44677ffd.png)
+![image](https://user-images.githubusercontent.com/37282871/125746039-4765fc30-5554-4f32-a0f5-56cd121077e1.png)
+
+![image](https://user-images.githubusercontent.com/37282871/125746097-ec712646-6809-4155-b1ac-ad7d8b67b9c5.png)
 
 ## Features
 
