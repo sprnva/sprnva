@@ -279,7 +279,7 @@ function getBrowser()
  */
 function csrf()
 {
-    return "<input type='hidden' name='_token' value='" . Request::csrf_token() . "'>";
+    return "<input type='hidden' name='_token' value='" . Request::csrf() . "'>";
 }
 
 /**

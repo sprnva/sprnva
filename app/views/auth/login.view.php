@@ -1,6 +1,7 @@
 <?php
 
 use App\Core\App;
+use App\Core\Request;
 ?>
 <html lang="en">
 
@@ -66,7 +67,6 @@ use App\Core\App;
                     <div class="card-body">
 
                         <?= msg('RESPONSE_MSG'); ?>
-
 
                         <form method="POST" action="<?= route('/login') ?>">
                             <?= csrf() ?>
