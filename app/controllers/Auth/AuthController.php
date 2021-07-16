@@ -18,7 +18,7 @@ class AuthController
         return view('/auth/login', compact('pageTitle'));
     }
 
-    public function authenticate()
+    public function store()
     {
         $request = Request::validate('/login', [
             'username' => ['required'],

@@ -55,11 +55,23 @@ function redirect($path, $message = [])
 {
     $path = App::get('base_url') . $path;
     if (!empty($message)) {
-        $_SESSION["RESPONSE_MSG"] = $message;
+        with_msg($message);
     }
 
     header("Location: {$path}");
     exit();
+}
+
+/**
+ * writes a response message.
+ *
+ * @param  array $message
+ */
+function with_msg($message = [])
+{
+    if (!empty($message)) {
+        $_SESSION["RESPONSE_MSG"] = $message;
+    }
 }
 
 /**
@@ -143,13 +155,13 @@ function sendMail($subject, $body, $recipients)
         $mail->send();
 
         $result_msg = [
-            "Message has been sent",
-            "success"
+            "message" => "Message has been sent",
+            "status" => "success"
         ];
     } catch (Exception $e) {
         $result_msg = [
-            "Message could not be sent. Mailer Error: {$mail->ErrorInfo}",
-            "danger"
+            "message" => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}",
+            "status" => "danger"
         ];
     }
 
@@ -157,20 +169,20 @@ function sendMail($subject, $body, $recipients)
 }
 
 /**
- * display session message then 
+ * display alert message then 
  * clear it instantly on refresh
  * 
- * @param string $errorSession
  * @param string $type
  */
-function msg($errorSession)
+function alert_msg()
 {
-    if (!empty($_SESSION[$errorSession])) {
-        $msg = "<div class='alert alert-" . $_SESSION[$errorSession][1] . "' role='alert' style='border-left-width: 4px;'>" . $_SESSION[$errorSession][0] . "</div>";
+    $msg = "";
 
-        unset($_SESSION[$errorSession]);
-    } else {
-        $msg = "";
+    if (!empty($_SESSION['RESPONSE_MSG'])) {
+
+        $msg = "<div class='alert alert-" . $_SESSION['RESPONSE_MSG']['status'] . " alert-dismissible fade show' role='alert' style='border-left-width: 4px;'>" . $_SESSION['RESPONSE_MSG']['message'] . "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+
+        unset($_SESSION['RESPONSE_MSG']);
     }
 
     return $msg;

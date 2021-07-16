@@ -33,7 +33,7 @@ class ProfileController
         ];
 
         DB()->update('users', $update_data, "id = '$user_id'");
-        redirect("/profile", ["Profile information updated.", 'success']);
+        redirect("/profile", ["message" => "Profile information updated.", "status" => 'success']);
     }
 
     public function changePass()
@@ -48,10 +48,9 @@ class ProfileController
         redirect("/profile", $response_message);
     }
 
-    public function delete()
+    public function destroy($user_id)
     {
         Request::validate();
-        $user_id = Auth::user('id');
         DB()->delete('users', "id = '$user_id'");
 
         Auth::logout();

@@ -100,7 +100,7 @@ class Request
 		static::storeValidatedToSession($setOldInput);
 
 		if (!empty($errorList)) {
-			redirect($uri, [implode('<br>', $errorList), "danger"]);
+			redirect($uri, ["message" => implode('<br>', $errorList), "status" => "danger"]);
 		}
 
 		if (isset($_REQUEST['csrf_token'])) {
@@ -153,7 +153,7 @@ class Request
 		$isEmailExist = DB()->select("*", "users", "email = '" . $request['email'] . "'")->get();
 
 		if (!$isEmailExist) {
-			redirect('/forgot/password', ['E-mail not found in the server.', 'danger']);
+			redirect('/forgot/password', ["message" => 'E-mail not found in the server.', "status" => 'danger']);
 		} else {
 
 			$token = Request::token(10);

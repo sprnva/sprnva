@@ -36,6 +36,6 @@ class RegisterController
         ];
 
         DB()->insert("users", $register_user);
-        redirect('/register', ["Success register", "success"]);
+        redirect('/register', ["message" => "Success register", "status" => "success"]);
     }
 }

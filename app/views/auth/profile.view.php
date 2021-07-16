@@ -1,10 +1,13 @@
 <?php require __DIR__ . '/../layouts/head.php';
 
-use App\Core\App; ?>
+use App\Core\App;
+use App\Core\Auth;
+
+?>
 
 <div class="row pb-3">
     <div class="col-12">
-        <?= msg('RESPONSE_MSG'); ?>
+        <?= alert_msg(); ?>
     </div>
     <div class="col-12">
         <div class="row">
@@ -19,8 +22,7 @@ use App\Core\App; ?>
                     <div class="col-12">
                         <div class="card" style="background-color: #fff; border: 0px; border-radius: 8px; box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);">
                             <div class="card-body">
-
-                                <form method="POST" action="<?= route('/profile') ?>">
+                                <form method="POST" action="<?= route('/profile', Auth::user('id')) ?>">
                                     <?= csrf() ?>
                                     <div class="form-group">
                                         <label for="username">E-mail</label>
@@ -97,7 +99,7 @@ use App\Core\App; ?>
                                     This will delete all of your account's data. Your data will not be recoverable.
                                 </div>
 
-                                <form method="POST" action="<?= route('/profile/delete') ?>">
+                                <form method="POST" action="<?= route('/profile/delete', Auth::user('id')) ?>">
                                     <?= csrf() ?>
                                     <div class="d-flex justify-content-end"><button type="submit" class="btn btn-danger btn-sm text-rigth">DELETE ACCOUNT</button></div>
                                 </form>
