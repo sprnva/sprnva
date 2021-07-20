@@ -1,4 +1,14 @@
 {
+    "name": "sprnva/srpnva",
+    "description": "The Sprnva Framework.",
+    "keywords": ["framework", "sprnva"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Judywen Guapin",
+            "email": "jguapin21@gmail.com"
+        }
+    ],
     "autoload": {
         "classmap": [
             "./"
