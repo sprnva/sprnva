@@ -10,16 +10,10 @@ use App\Core\Request;
 require __DIR__ . '/vendor/autoload.php';
 
 /**
- * Load the DI containers and helpers
- * 
- */
-require 'system/bootstrap.php';
-
-/**
  * direct the routes
  * 
  */
-Router::load('system/Routes.php')
+Router::load(__DIR__ . '/vendor/sprnva/framework/src/Routes.php')
 	->direct(
 		// request uri
 		Request::uri(),

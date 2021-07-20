@@ -1,7 +1,10 @@
 {
     "name": "sprnva/sprnva",
     "description": "The Sprnva Framework.",
-    "keywords": ["framework", "sprnva"],
+    "keywords": [
+        "framework",
+        "sprnva"
+    ],
     "authors": [
         {
             "name": "Judywen Guapin",
@@ -14,6 +17,11 @@
     "autoload": {
         "classmap": [
             "./"
+        ]
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('cofig.php') || copy('cofig.example', 'cofig.php');\""
         ]
     },
     "minimum-stability": "dev",
