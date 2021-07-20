@@ -8,6 +8,9 @@
             "email": "jguapin21@gmail.com"
         }
     ],
+    "require": {
+        "sprnva/framework": "^1.0.0"
+    },
     "autoload": {
         "classmap": [
             "./"
