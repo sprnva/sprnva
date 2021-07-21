@@ -1,5 +1,6 @@
 {
     "name": "sprnva/sprnva",
+    "type": "project",
     "description": "The Sprnva Framework.",
     "keywords": [
         "framework",
