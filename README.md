@@ -1,4 +1,5 @@
-# Sprnva /supernova/
+# Sprnva Framework
+### /supernova/
 Sprnva is a beautifully designed application starter kit for you and provides the perfect starting point for your next application. Sprnva provides the entry point in learning the MVC framework.
 <br><br>
 docs: http://sprnva.000webhostapp.com/
