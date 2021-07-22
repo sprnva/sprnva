@@ -70,17 +70,19 @@ use App\Core\Auth;
     <div class="container mt-3">
         <div class="row">
             <div class="col-12 d-flex flex-row justify-content-end">
-                <ul class="navbar-nav flex-row ml-md-auto">
-                    <li class="nav-item">
-                        <a class="nav-link link-green" href="<?= route('/login') ?>">Login</a>
-                    </li>
-                    <li class="nav-item pl-2 pr-2">
-                        <span class="nav-link text-muted">|</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-green" href="<?= route('/register') ?>">Register</a>
-                    </li>
-                </ul>
+                <?php if (fortified()) { ?>
+                    <ul class="navbar-nav flex-row ml-md-auto">
+                        <li class="nav-item">
+                            <a class="nav-link link-green" href="<?= route('/login') ?>">Login</a>
+                        </li>
+                        <li class="nav-item pl-2 pr-2">
+                            <span class="nav-link text-muted">|</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link-green" href="<?= route('/register') ?>">Register</a>
+                        </li>
+                    </ul>
+                <?php } ?>
             </div>
             <div class="col-12">
                 <div class="d-flex flex-row align-items-center">
@@ -90,7 +92,7 @@ use App\Core\Auth;
                 <div class="card mt-3">
                     <!-- <h5 class="card-header">Welcome to your Sprnva application!</h5> -->
                     <div class="card-body">
-                        <p class="card-text">Sprnva will provide you experience and expand your vision for a better understanding of the basics. We'll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. Featuring Model-view-controller software design pattern, debugging, secure and organized routing, expressive database builder, built-in authentication and more.</p>
+                        <p class="card-text">Sprnva will provide you experience and expand your vision for a better understanding of the basics. We'll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. Featuring Model-view-controller software design pattern, debugging, secure and organized routing, expressive database builder and more.</p>
                     </div>
 
                     <div class="col-12">
