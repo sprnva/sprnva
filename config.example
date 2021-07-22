@@ -3,7 +3,7 @@
 $config = [
 
     // DATABASE
-    'name' => 'sprnva',
+    'name' => '',
     'username' => 'root',
     'password' => '',
     'connection' => '127.0.0.1',
