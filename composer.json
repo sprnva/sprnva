@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "sprnva/framework": "^1.3"
+        "sprnva/framework": "^2.0"
     },
     "autoload": {
         "classmap": [
