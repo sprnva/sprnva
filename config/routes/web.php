@@ -10,11 +10,11 @@
  * 
  */
 
-use App\Core\Auth;
+use App\Core\Routing\Route;
 
-$router->get('/', function () {
+Route::get('/', function () {
     $pageTitle = "Welcome";
     return view('/welcome', compact('pageTitle'));
 });
 
-$router->get('/home', ['WelcomeController@home', 'auth']);
+Route::get('/home', ['WelcomeController@home', ['auth']]);
