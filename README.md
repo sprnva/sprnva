@@ -44,6 +44,7 @@ cd example-app
 ```
 
 - setup `config.php` credentials
+- set `'base_url' => 'example-app'` *('example-app' is the directory name of your application)*
 - Create a database identical to your config then go to  `/migration`module with this URL:
 ```
 http://localhost/sprnva/migration
