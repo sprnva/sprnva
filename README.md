@@ -32,7 +32,7 @@ Sprnva is designed using bootstrap 4 and offers your choice of using different s
 - brightens your horizon in future engagement for massive frameworks
 
 ## REQUIREMENTS
-- Php version supported: PHP >= php5.5
+- Php version supported: PHP >= php5.6
 - composer
 - apache and mysql server
 
