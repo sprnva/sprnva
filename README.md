@@ -13,7 +13,7 @@ Sprnva is designed using bootstrap 4 and offers your choice of using different s
 
 - beautiful routing
 - protected routes by authentication
-- can run on php >= php5.5
+- can run on php >= php5.6
 - built in login and registration
 - forgot password with email sending password reset link
 - inspired in MVC approach
