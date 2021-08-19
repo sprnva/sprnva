@@ -100,7 +100,7 @@ use App\Core\Auth;
                             <div class="col-6">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title"><a class="wlcm-link" href="https://sprnva.000webhostapp.com/" target="_blank">Documentation</a></h5>
+                                        <h5 class="card-title"><a class="wlcm-link" href="https://docs.sprnva.space" target="_blank">Documentation</a></h5>
                                         <p class="card-text pt-1 text-muted">Sprnva has also a dedicated documentation covering every aspect of the framework. Newbies or have previous experience with Sprnva, we recommend reading all documenataion.</p>
                                         <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                     </div>
