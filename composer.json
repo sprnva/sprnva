@@ -24,9 +24,6 @@
     "scripts": {
         "post-root-package-install": [
             "@php -r \"file_exists('config.php') || copy('config.example', 'config.php');\""
-        ],
-        "post-package-install": [
-            "@php fortify"
         ]
     },
     "config": {
