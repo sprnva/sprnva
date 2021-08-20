@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+if (fortified()) {
+	echo (new App\Core\Install\Fortify)->handle_install();
+}
