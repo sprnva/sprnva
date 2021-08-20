@@ -25,7 +25,7 @@
         "post-root-package-install": [
             "@php -r \"file_exists('config.php') || copy('config.example', 'config.php');\""
         ],
-        "post-autoload-dump": [
+        "pre-autoload-dump": [
             "@php fortify"
         ]
     },
