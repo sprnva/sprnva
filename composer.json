@@ -26,7 +26,8 @@
             "@php -r \"file_exists('config.php') || copy('config.example', 'config.php');\""
         ],
         "post-autoload-dump": [
-            "@php fortify"
+            "@php fortify",
+            "@composer dump-autoload"
         ]
     },
     "config": {
