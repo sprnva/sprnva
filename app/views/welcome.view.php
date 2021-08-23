@@ -53,9 +53,12 @@ use App\Core\App;
             margin-left: 0px;
         }
 
-        .col-md-6 {
-            padding-right: 0px;
-            padding-left: 0px;
+        .table-bordered {
+            border: 1px solid #ccc;
+        }
+
+        .table td, .table th {
+            padding: 1.50rem;
         }
     </style>
 
@@ -111,42 +114,28 @@ use App\Core\App;
 
                     <div class="col-12" style="padding: 0px;">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="card" style="border-radius: 0px;border-left: 0px !important;">
-                                    <div class="card-body">
+                            <table class="table table-bordered" style="padding: 0px; margin-bottom: 0px;">
+                                <tr>
+                                    <td style="width: 50%;">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://docs.sprnva.space" target="_blank">Documentation</a></h5>
                                         <p class="card-text pt-1 text-muted">Sprnva has also a dedicated documentation covering every aspect of the framework. Newbies or have previous experience with Sprnva, we recommend reading all documenataion.</p>
-                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card" style="border-radius: 0px;border-right: 0px !important;">
-                                    <div class="card-body">
+                                    </td>
+                                    <td style="width: 50%;">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://github.com/sprnva" target="_blank">Github</a></h5>
                                         <p class="card-text pt-1 text-muted">Visit Sprnva repository and explore other projects like migration, file uploads, dumper also known as dd() and also the flavoured templates of sprnva.</p>
-                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card" style="border-radius: 0px;border-left: 0px !important;">
-                                    <div class="card-body">
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <td style="width: 50%;">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://github.com/jagwarthegreat/jagwarthegreat/blob/main/README.md" target="_blank">The Author</a></h5>
                                         <p class="card-text pt-1 text-muted">Meet the creator and the mastermind behind the blast! the author of this fun is happy to see you. You might also want to follow him and send a feedback.</p>
-                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card" style="border-radius: 0px;border-right: 0px !important;">
-                                    <div class="card-body">
+                                    </td>
+                                    <td style="width: 50%;">
                                         <h5 class="card-title"><a class="wlcm-link" href="#">Why Sprnva?</a></h5>
                                         <p class="card-text pt-1 text-muted">Simple codebase yet powerful, embraces your basic knowledge of creating a web application. Small scale file structure but packed with securities and protection from unwanted attacks.</p>
-                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                    </div>
-                                </div>
-                            </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
