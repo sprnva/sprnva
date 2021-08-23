@@ -1,7 +1,6 @@
 <?php
 
 use App\Core\App;
-use App\Core\Auth;
 ?>
 <html lang="en">
 
@@ -34,9 +33,10 @@ use App\Core\Auth;
         }
 
         .card {
-            box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
-            margin-bottom: 1rem;
-            border-radius: .5rem !important;
+            box-shadow: 0px;
+            margin-bottom: 0rem;
+            border-radius: 0rem !important;
+            border: 1px solid rgba(0, 0, 0, 0.2);
         }
 
         .wlcm-link {
@@ -46,6 +46,16 @@ use App\Core\Auth;
 
         .link-green {
             color: #00551f !important;
+        }
+
+        .row {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+
+        .col-md-6 {
+            padding-right: 0px;
+            padding-left: 0px;
         }
     </style>
 
@@ -67,11 +77,11 @@ use App\Core\Auth;
 </head>
 
 <body>
-    <div class="container mt-3">
+    <div class="container mt-1">
         <div class="row">
             <div class="col-12 d-flex flex-row justify-content-end">
-                <?php if (fortified()) { ?>
-                    <ul class="navbar-nav flex-row ml-md-auto">
+                <ul class="navbar-nav flex-row ml-md-auto">
+                    <?php if (fortified()) { ?>
                         <li class="nav-item">
                             <a class="nav-link link-green" href="<?= route('/login') ?>">Login</a>
                         </li>
@@ -81,24 +91,28 @@ use App\Core\Auth;
                         <li class="nav-item">
                             <a class="nav-link link-green" href="<?= route('/register') ?>">Register</a>
                         </li>
-                    </ul>
-                <?php } ?>
+                    <?php }else{ ?>
+                        <li class="nav-item">
+                            <a class="nav-link link-green">&nbsp;</a>
+                        </li>
+                    <?php } ?>
+                </ul>
             </div>
             <div class="col-12">
                 <div class="d-flex flex-row align-items-center">
                     <img src="<?= public_url('/storage/images/sprnva-logo.png') ?>" alt="sprnva-logo" style="width: 65px; height: 65px;">
                     <h1 class="pl-2 mb-0" style="color: #00551f;font-weight: 600;">Sprnva</h1>
                 </div>
-                <div class="card mt-3">
+                <div class="card mt-3" style="border-radius: 0.5rem !important;">
                     <!-- <h5 class="card-header">Welcome to your Sprnva application!</h5> -->
                     <div class="card-body">
                         <p class="card-text">Sprnva will provide you experience and expand your vision for a better understanding of the basics. We'll help you take your first steps as a web developer or give you a boost as you take your expertise to the next level. Featuring Model-view-controller software design pattern, debugging, secure and organized routing, expressive database builder and more.</p>
                     </div>
 
-                    <div class="col-12">
-                        <div class="row p-2">
-                            <div class="col-6">
-                                <div class="card">
+                    <div class="col-12" style="padding: 0px;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card" style="border-radius: 0px;border-left: 0px !important;">
                                     <div class="card-body">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://docs.sprnva.space" target="_blank">Documentation</a></h5>
                                         <p class="card-text pt-1 text-muted">Sprnva has also a dedicated documentation covering every aspect of the framework. Newbies or have previous experience with Sprnva, we recommend reading all documenataion.</p>
@@ -106,8 +120,8 @@ use App\Core\Auth;
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="card">
+                            <div class="col-md-6">
+                                <div class="card" style="border-radius: 0px;border-right: 0px !important;">
                                     <div class="card-body">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://github.com/sprnva" target="_blank">Github</a></h5>
                                         <p class="card-text pt-1 text-muted">Visit Sprnva repository and explore other projects like migration, file uploads, dumper also known as dd() and also the flavoured templates of sprnva.</p>
@@ -115,8 +129,8 @@ use App\Core\Auth;
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="card">
+                            <div class="col-md-6">
+                                <div class="card" style="border-radius: 0px;border-left: 0px !important;">
                                     <div class="card-body">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://github.com/jagwarthegreat/jagwarthegreat/blob/main/README.md" target="_blank">The Author</a></h5>
                                         <p class="card-text pt-1 text-muted">Meet the creator and the mastermind behind the blast! the author of this fun is happy to see you. You might also want to follow him and send a feedback.</p>
@@ -124,8 +138,8 @@ use App\Core\Auth;
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="card">
+                            <div class="col-md-6">
+                                <div class="card" style="border-radius: 0px;border-right: 0px !important;">
                                     <div class="card-body">
                                         <h5 class="card-title"><a class="wlcm-link" href="#">Why Sprnva?</a></h5>
                                         <p class="card-text pt-1 text-muted">Simple codebase yet powerful, embraces your basic knowledge of creating a web application. Small scale file structure but packed with securities and protection from unwanted attacks.</p>
@@ -133,6 +147,16 @@ use App\Core\Auth;
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12" style="display: flex;flex-direction: row;justify-content: space-between;margin-top: 2px;padding: 0px;">
+                    <div>
+                         <p class="card-text pt-1 text-muted"></p>
+                    </div>
+                    <div>
+                        <div class="text-sm mb-3" style="font-size: 14px;">
+                            Sprnva v<?= appversion() ?> (PHP v<?= phpversion() ?>)
                         </div>
                     </div>
                 </div>
