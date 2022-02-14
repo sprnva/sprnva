@@ -118,7 +118,7 @@ use App\Core\App;
                                 <tr>
                                     <td style="width: 50%;">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://docs.sprnva.space" target="_blank">Documentation</a></h5>
-                                        <p class="card-text pt-1 text-muted">Sprnva has also a dedicated documentation covering every aspect of the framework. Newbies or have previous experience with Sprnva, we recommend reading all documenataion.</p>
+                                        <p class="card-text pt-1 text-muted">Sprnva has also a dedicated documentation covering every aspect of the framework. Newbies or have previous experience with Sprnva, we recommend reading all documentation.</p>
                                     </td>
                                     <td style="width: 50%;">
                                         <h5 class="card-title"><a class="wlcm-link" href="https://github.com/sprnva" target="_blank">Github</a></h5>
