@@ -3,9 +3,5 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-if (fortified()) {
-	echo (new App\Core\Install\Fortify)->handle_install();
-	exec('composer dump-autoload');
-} else {
-	echo "Fortify not detected on your app.";
-}
+exec('php vendor/sprnva/fortify/serve', $output);
+echo implode(',\n', $output);
