@@ -77,6 +77,7 @@ use App\Core\Auth;
 				<ul class="navbar-nav flex-row ml-md-auto">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<img src="<?= Storage::getAvatar(Auth::user('id')); ?>" alt="sprnva-logo" style="width: 30px; height: 30px;object-fit: cover;border-radius: 50%;">
 							<?= Auth::user('fullname') ?>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
