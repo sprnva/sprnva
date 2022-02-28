@@ -2,6 +2,7 @@
 
 use App\Core\App;
 use App\Core\Auth;
+use App\Core\Storage;
 ?>
 <html lang="en">
 
