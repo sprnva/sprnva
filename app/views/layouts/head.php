@@ -39,6 +39,21 @@ use App\Core\Storage;
 			margin-bottom: 1rem;
 			border-radius: .5rem !important;
 		}
+
+		.table td,
+		.table th {
+			padding: 0.45rem;
+		}
+
+		.table th {
+			background-color: #eaecf0;
+		}
+
+		.table tr,
+		.table th,
+		.table td {
+			border: 1px solid #a2a9b1;
+		}
 	</style>
 
 	<script src="<?= public_url('/assets/sprnva/js/jquery-3.6.0.min.js') ?>"></script>
